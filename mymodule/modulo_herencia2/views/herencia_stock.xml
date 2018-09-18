@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='herencia_stock'>
+            <field name='name'>stock_move_view_inherit</field>
+            <field name='model'>stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree_receipt_picking"/>
+            <field name='arch' type='xml'>
+                <xpath expr="//tree" position="replace">
+                    <tree string='description'>
+                        <field name="date"/>
+                        <field name="date_expected"/>
+                        <field name="location_dest_id"/>
+                        <field name="location_id"/>
+                        <field name="ordered_qty"/>
+                        <field name="product_id"/>
+                        <field name="state"/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="stock_move_search">
+            <field name="name">stock_move.search</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="backorder_id"></field>
+                    <group string="Group By">
+                        <filter name="backorder_id" string="Pedido de" context="{'group_by' : 'backorder_id'}"></filter>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="stock_move_inherit_action" model="ir.actions.act_window">
+            <field name="name">Stock Move</field>
+            <field name="res_model">stock.move</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="stock_inventory_detail_item" name="Stock Move"
+            action="stock_move_inherit_action" sequence="40"
+            parent="stock.menu_stock_inventory_control" />
+    </data>
+</odoo>

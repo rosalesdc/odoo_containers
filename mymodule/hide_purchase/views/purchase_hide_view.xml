@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hide_purchase_inherited" model="ir.ui.view">
+            <field name="name">product.template.inherited</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="purchase.view_product_supplier_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='purchase']" position="attributes">              
+                    <attribute name="groups">account.group_account_manager</attribute> 
+                </xpath>
+            </field>
+        </record>
+    </data>	
+</odoo>
+
+<!--                <field name="mobile" attrs="{'invisible','=',1}"/>-->
+<!--                <field name="mobile" position="replace">
+    <field name="mobile" invisible="1"/>
+</field>
+-->
+<!--                    <field name="mobile" groups="modulo.nombre_grupo"/>-->
+<!--                <xpath expr="//field[@name='mobile']" position="attributes">
+    <attribute name="groups">expiration_field_hide.nombre_grupo</attribute>
+</xpath>-->

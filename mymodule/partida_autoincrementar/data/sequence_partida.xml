@@ -1,0 +1,27 @@
+<!--<odoo>
+    <data noupdate="1">
+        <record model="ir.sequence.type" id="seq_type_emp_id">
+            <field name="name">Partida</field>
+            <field name="code">con.partida</field>
+        </record>
+        <record model="ir.sequence" id="seq_emp_id">
+            <field name="name">Partida No</field>
+            <field name="code">con.partida</field>
+            <field name="prefix"></field>
+            <field name="padding">1</field>
+        </record>
+    </data>
+</odoo>-->
+
+
+
+<!--<odoo>
+    <data noupdate="1">
+        <record id="seq_hr_employee" model="ir.sequence">
+            <field name="name">omega_sequencer</field>
+            <field name="code">hr.employee</field>
+            <field name="prefix">QO</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</odoo>-->

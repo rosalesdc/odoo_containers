@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--comentarios-->
+<odoo>
+	<data>
+		<record id="refaccion_form_view" model="ir.ui.view"><!--esta vista pertenece al modelo-->
+			<field name="name">refaccion.form.view</field><!--texto arbitrario pero se utlizia esta forma por convención-->
+			<field name="model">refaccion.informacion_detalle</field><!--texto arbitrario pero se utlizia esta forma por convención, viene del modelo creado-->
+			<field name="arch" type="xml"><!--arquitectura-->
+			<form>
+				<sheet><!--hoja que es un espacio dentro de lo mostrado por el navegador-->
+					<group><!--grupos de campos-->
+						<field name="name"></field><!--recomendable primero poner los campos que se definieron como requeridos-->
+						<field name="proveedor"></field>
+					</group>
+					<group><!--grupos de campos-->
+						<field name="unidades_inicial"></field><!--recomendable primero poner los campos que se definieron como requeridos-->
+						<field name="descontinuado"></field>
+						<field name="fecha_registro"></field>
+					</group>
+				</sheet>
+			</form>
+			</field>
+		</record>
+		<record id="refaccion_tree_view" model="ir.ui.view">
+			<field name="name">refaccion.tree.view</field>
+			<field name="model">refaccion.informacion_detalle</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"></field>
+					<field name="proveedor"></field>
+					<field name="unidades_inicial"></field>
+					<field name="descontinuado"></field>
+					<field name="fecha_registro"></field>
+				</tree>
+			</field>
+		</record>
+
+		<record id="refaccion_action_window" model="ir.actions.act_window">
+			<field name="name">refaccion</field>
+			<field name="res_model">refaccion.informacion_detalle</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<menuitem
+			id="registro_refacciones"
+			name="Modulo Refacciones"
+			sequence="51"
+			/>
+		<menuitem
+			id="refacciones_menuitem"
+			name="Refacciones"
+			action="refaccion_action_window"
+			parent="registro_refacciones"
+			sequence="11"
+			/>
+	</data>
+</odoo>

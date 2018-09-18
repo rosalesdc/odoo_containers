@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hide_view_inherited" model="ir.ui.view">
+            <field name="name">res.partner.inherited</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+               
+<!--                <field name="mobile" attrs="{'invisible','=',1}"/>-->
+<!--                <field name="mobile" position="replace">
+                    <field name="mobile" invisible="1"/>
+                </field>
+                -->
+                <xpath expr="//form/sheet/notebook/page[@name='internal_notes']" position="attributes">
+                    <attribute name="groups">sales_team.group_sale_manager</attribute>
+                </xpath> 
+                
+                
+                    
+<!--                    <field name="mobile" groups="modulo.nombre_grupo"/>-->
+<!--                <xpath expr="//field[@name='mobile']" position="attributes">
+                    <attribute name="groups">expiration_field_hide.nombre_grupo</attribute>
+                </xpath>-->
+            </field>
+        </record>
+    </data>	
+</odoo>

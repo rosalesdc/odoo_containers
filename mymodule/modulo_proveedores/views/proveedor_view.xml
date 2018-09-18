@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--comentarios-->
+<odoo>
+    <data>
+        <record id="proveedor_form_view" model="ir.ui.view"><!--esta vista pertenece al modelo-->
+            <field name="name">proveedor.form.view</field><!--texto arbitrario pero se utlizia esta forma por convención-->
+            <field name="model">proveedor.informacion_data</field><!--texto arbitrario pero se utlizia esta forma por convención, viene del modelo creado-->
+            <field name="arch" type="xml"><!--arquitectura-->
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"></field>
+                            <field name="direccion"></field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="proveedor_tree_view" model="ir.ui.view">
+            <field name="name">proveedor.tree.view</field>
+            <field name="model">proveedor.informacion_data</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"></field>
+                    <field name="direccion"></field>
+                </tree>
+            </field>
+        </record>
+        <record id="proveedor_action_window" model="ir.actions.act_window">
+            <field name="name">proveedor</field>
+            <field name="res_model">proveedor.informacion_data</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem
+            id="registro_proveedores"
+            name="Modulo Proveedores"
+            sequence="55"
+        />
+        <menuitem
+            id="proveedores_menuitem"
+            name="Proveedores"
+            action="proveedor_action_window"
+            parent="registro_proveedores"
+            sequence="15"
+        />
+    </data>
+</odoo>
