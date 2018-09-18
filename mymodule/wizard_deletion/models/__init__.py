@@ -1,5 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import wizard_deletion, new_wizard
-
-
+from . import wizard_deletion

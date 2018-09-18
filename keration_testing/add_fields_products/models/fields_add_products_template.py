@@ -8,11 +8,11 @@ class fields_add_products_template(models.Model):
     
     quilate = fields.Float(string='Quilate', digits=(4, 2), default=0.0)
     balance_quilate = fields.Float(string='Balance quilate', digits=(4, 2), default=0.0)
-    medida = fields.Char(string='Medida', default='Ingresa Texto')
+    medida = fields.Char(string='Medida')
     lote = fields.Boolean()
-    nombre_proveedor=fields.Char(string='Nombre del Proveedor', default='Ingresa Texto')
-    referencia_proveedor=fields.Char(string='No. de referencia de proveedor', default='Ingresa Texto')
-    procedencia=fields.Char(string='Lugar de procedencia', default='Ingresa Texto')
+#    nombre_proveedor=fields.Char(string='Nombre del Proveedor', default='Ingresa Texto')
+#    referencia_proveedor=fields.Char(string='No. de referencia de proveedor', default='Ingresa Texto')
+#    procedencia=fields.Char(string='Lugar de procedencia', default='Ingresa Texto')
     
     piedra_formas_id = fields.Many2one(
                                        'fields_add_products_template.piedra_formas', #modelo relacionado

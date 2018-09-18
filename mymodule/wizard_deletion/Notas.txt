@@ -1,5 +1,0 @@
-sudo docker tag [local_image] [remote_repository]
-sudo docker commit [container_id] [local_repository]
-sudo docker push [repository]
-
-
