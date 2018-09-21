@@ -19,6 +19,7 @@
                             <field name="piedra_laboratorios_id"></field>
                         </group>
                         <group>
+                            <field name="numero_certificado" placeholder="Ingresa texto"></field>
                             <field name="piedra_cortes_id"></field>
                             <field name="piedra_claridades_id"></field>
                             <field name="piedra_pulidos_id"></field>

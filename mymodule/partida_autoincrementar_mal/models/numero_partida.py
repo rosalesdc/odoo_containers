@@ -5,8 +5,17 @@ from odoo import models
 
 
 class numeroPartida(models.Model):
-    _inherit = 'sale.order.line'
-    x_num_partida = fields.Integer(string="xnum", default=7)
+    #_inherit = 'sale.order.line'
+    
+    
+    
+    x_num_partida = fields.Integer(string="xnum", default='4')
+    
+    def _verificar(self, self2=1):
+        indice = 7
+        #self.x_num_partida = indice
+        return 10
+    
  #   x_num_partida = fields.Integer(string="xnum", default=_verificar)
     
     

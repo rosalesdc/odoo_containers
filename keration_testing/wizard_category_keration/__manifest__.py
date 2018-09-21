@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Wizard para borrar compras",
+    'name': "Wizard para cambiar categoria",
 
     'summary': """Ejercicios
     """,
 
     'description': """
-        Modulos funcionales para capacitación
+        Modulos funcionales para Keration
     """,
 
     'author': "Soluciones4G",
@@ -20,11 +20,13 @@
     # any module necessary for this one to work correctly
     'depends': [
         'base',
+        'product',        
     ],
 
     # always loaded
 	'data': [
-	'views/wizard_deletion_view.xml',
+	'views/wizard_category_view.xml',
+#    'views/new_wizard_view.xml',
 	'templates.xml',
 	'reports.xml',
     ],

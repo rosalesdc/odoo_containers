@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Auto-incrementar Partida",
+    'name': "Agrega Campos de Contactos",
 
     'summary': """
     """,
 
     'description': """
-        Auto-incrementar el campo Partida en la impresión del reporte
+        1.- Agrega Campo Código para los Vendors
     """,
 
     'author': "Soluciones4G",
@@ -20,16 +20,12 @@
     # any module necessary for this one to work correctly
     'depends': [
         'base',
-        'stock',
-        'product',
-        'sale',
-        'sale_management'
+        'contacts' # es el nombre de la aplicacion de la que extendemos
     ],
 
     # always loaded
     'data': [
-        'views/partida_increment_view.xml'
+    'views/codigo_res_partner.xml'
     ],
     'installable':True,
-    'auto_install':False,
 }

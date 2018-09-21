@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Wizard para borrar compras",
+    'name': "Autoincrementar Registro Venta",
 
-    'summary': """Ejercicios
+    'summary': """
     """,
 
     'description': """
-        Modulos funcionales para capacitación
+        Modulo para autoenumerar los items de Ventas por Web
     """,
 
     'author': "Soluciones4G",
@@ -24,9 +24,7 @@
 
     # always loaded
 	'data': [
-	'views/wizard_deletion_view.xml',
-	'templates.xml',
-	'reports.xml',
+	'views/partida_increment_view.xml',
     ],
 	'demo':[
 

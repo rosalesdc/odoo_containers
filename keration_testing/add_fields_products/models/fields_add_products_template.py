@@ -10,6 +10,7 @@ class fields_add_products_template(models.Model):
     balance_quilate = fields.Float(string='Balance quilate', digits=(4, 2), default=0.0)
     medida = fields.Char(string='Medida')
     lote = fields.Boolean()
+    numero_certificado = fields.Char(string='Numero de certificado')
 #    nombre_proveedor=fields.Char(string='Nombre del Proveedor', default='Ingresa Texto')
 #    referencia_proveedor=fields.Char(string='No. de referencia de proveedor', default='Ingresa Texto')
 #    procedencia=fields.Char(string='Lugar de procedencia', default='Ingresa Texto')

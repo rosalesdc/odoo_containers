@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Wizard para borrar compras",
+    'name': "Agrega campos de productos de joyería",
 
-    'summary': """Ejercicios
+    'summary': """ Campos adicionales para productos Keration
     """,
 
     'description': """
-        Modulos funcionales para capacitación
+    Rapaport (numérico); 
+    Costo Rapaport (numérico con decimales porcentaje); 
+    Costo USD Quilate (Número calculado) rapaport/porcentaje costo rapaport; 
+    Costo Total (Número calculado moneda) costo usd quilate*quilate
     """,
 
     'author': "Soluciones4G",
@@ -20,11 +23,13 @@
     # any module necessary for this one to work correctly
     'depends': [
         'base',
+        'product',        
     ],
 
     # always loaded
 	'data': [
-	'views/wizard_deletion_view.xml',
+	'views/add_fields_rapaport_view.xml',
+#    'views/new_wizard_view.xml',
 	'templates.xml',
 	'reports.xml',
     ],

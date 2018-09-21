@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Wizard para borrar compras",
+    'name': "Incrementar indice de productos",
 
-    'summary': """Ejercicios
+    'summary': """
     """,
 
     'description': """
-        Modulos funcionales para capacitación
+        Autoincrementar indices de productos por Web
     """,
 
     'author': "Soluciones4G",
@@ -19,14 +19,12 @@
 
     # any module necessary for this one to work correctly
     'depends': [
-        'base',
+        'base','sale',
     ],
 
     # always loaded
 	'data': [
-	'views/wizard_deletion_view.xml',
-	'templates.xml',
-	'reports.xml',
+	'views/index_increment_view.xml',
     ],
 	'demo':[
 
