@@ -4,7 +4,7 @@ from odoo import fields
 from odoo import models
 
 class piedra_formas(models.Model):
-    _name = 'fields_add_products_template.piedra_formas'
+    _name = 'add_fields_rapaport_model.piedra_formas'
 
     name = fields.Char(
                        string="Formas",

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="new_wizard_form_view" model="ir.ui.view">
+            <field name="name">new.wizard.form</field>
+            <field name="model">new.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Importar Listas de Productos">
+                    <footer>
+                        <button class="oe_highlight" string="Actualizar" name="import_button" type="object"/>
+                        <button class="oe_link" string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="new_wizard_action_form" model="ir.actions.act_window">
+            <field name="name">Nuevo Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">new.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Nuevo Wizard" id="menu_new_wizard"  parent="sale.product_menu_catalog"
+                  action="new_wizard_action_form" sequence="32"/>
+    </data>
+</odoo>

@@ -25,8 +25,7 @@
     # always loaded
 	'data': [
 	'views/wizard_deletion_view.xml',
-	'templates.xml',
-	'reports.xml',
+        'views/new_wizard_view.xml',
     ],
 	'demo':[
 

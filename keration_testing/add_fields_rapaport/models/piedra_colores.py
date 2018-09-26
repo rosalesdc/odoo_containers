@@ -3,10 +3,10 @@
 from odoo import fields
 from odoo import models
 
-class piedra_claridades(models.Model):
-    _name = 'fields_add_products_template.piedra_claridades'
+class piedra_colores(models.Model):
+    _name = 'add_fields_rapaport_model.piedra_colores'
 
     name = fields.Char(
-                       string="Claridad",
+                       string="Color",
                        required=True,
                        )

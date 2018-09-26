@@ -1,0 +1,5 @@
+26 de septiembre
+-Se modifican los valores de los modelos con relación Many2one para que se visualicen con los usuarios del grupo Ventas/todos los documentos
+    esta modificación se hizo directamente en las vistas
+    https://www.odoo.com/forum/help-1/question/how-do-i-make-added-fields-visible-to-all-users-74766
+-
