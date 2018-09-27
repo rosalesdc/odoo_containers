@@ -23,11 +23,12 @@
     # any module necessary for this one to work correctly
     'depends': [
         'base',
-        'product',        
+        'product',
     ],
 
     # always loaded
 	'data': [
+        'sequences/product_sequence.xml',
 	'views/add_fields_rapaport_view.xml',
         'data/piedra_claridades_data.xml',
         'data/piedra_colores_data.xml',
@@ -37,6 +38,7 @@
         'data/piedra_laboratorios_data.xml',
         'data/piedra_pulidos_data.xml',
         'data/piedra_simetrias_data.xml',
+        'views/piedra_claridad_view.xml',
 
 #    'views/new_wizard_view.xml',
 	'templates.xml',
