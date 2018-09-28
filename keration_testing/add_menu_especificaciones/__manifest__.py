@@ -24,7 +24,7 @@
 
     # always loaded
     'data': [
-        'views/add_menu_especificaciones.xml'
+        'views/add_menu_especificaciones.xml',
     ],
     'installable':True,
     'auto_install':False,

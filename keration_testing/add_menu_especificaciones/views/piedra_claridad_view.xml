@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--comentarios-->
+<!--ESTA ARCHIVO SE UTILIZÓ INICIALMENTE PARA ARMAR EL MENÚ, YA NO SE UTILIZA EN LA VERSIÓN FINAL-->
+<!--ESTA ARCHIVO SE UTILIZÓ INICIALMENTE PARA ARMAR EL MENÚ, YA NO SE UTILIZA EN LA VERSIÓN FINAL-->
+<!--ESTA ARCHIVO SE UTILIZÓ INICIALMENTE PARA ARMAR EL MENÚ, YA NO SE UTILIZA EN LA VERSIÓN FINAL-->
 <odoo>
     <data>
         <record id="piedra_claridad_view" model="ir.ui.view"><!--esta vista pertenece al modelo-->
@@ -47,11 +49,6 @@
             name="Training Module"
             sequence="50"
         />-->
-        <menuitem
-            id="claridad_data_test"
-            name="Claridad Data"
-            sequence="50"
-        />
         <menuitem
             id="claridad_menuitem"
             name="Claridad"

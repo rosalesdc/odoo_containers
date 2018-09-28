@@ -38,7 +38,6 @@
         'data/piedra_laboratorios_data.xml',
         'data/piedra_pulidos_data.xml',
         'data/piedra_simetrias_data.xml',
-        'views/piedra_claridad_view.xml',
 
 #    'views/new_wizard_view.xml',
 	'templates.xml',
