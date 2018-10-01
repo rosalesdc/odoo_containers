@@ -4,3 +4,6 @@
     https://www.odoo.com/forum/help-1/question/how-do-i-make-added-fields-visible-to-all-users-74766
 27 de septiembre
     -Se añadirá un menú para acceder a las opciones de especificaciones
+28 de septiembre
+    -Se añadió una secuencia para numerar los productos
+    -Se añade un campo al modelo de productos para almacenar un campo que contendrá un porcentaje calculado

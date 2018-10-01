@@ -24,12 +24,14 @@
     'depends': [
         'base',
         'product',
+        'sale',
     ],
 
     # always loaded
 	'data': [
         'sequences/product_sequence.xml',
 	'views/add_fields_rapaport_view.xml',
+        'views/add_porcentaje_rapaport.xml',
         'data/piedra_claridades_data.xml',
         'data/piedra_colores_data.xml',
         'data/piedra_cortes_data.xml',

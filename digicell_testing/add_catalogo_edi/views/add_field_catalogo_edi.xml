@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="add_field_catalogo_edi" model="ir.ui.view">
+            <field name="name">add.field.catalogo.edi</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//page/group/group[@name='fiscal_information']/field[@name='property_account_position_id']" position="after">
+                    <field name="catalogo_edi_field"></field> 
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
