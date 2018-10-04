@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Agrega opciones EDI/CFDI",
+    'name': "Digicell - Agrega opciones EDI/CFDI",
 
     'summary': """ 
     """,
 
     'description': """
         Agrega el catálogo de opciones de seleccionar el uso de EDI/CFDI
+        se visualiza en Contacto->Pestaña Contabilidad-> Uso del CFDI
     """,
 
     'author': "Soluciones4G",

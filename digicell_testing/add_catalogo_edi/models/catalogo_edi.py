@@ -29,7 +29,5 @@ class catalogo_edi(models.Model):
                             ('D10','D10 Pagos por servicios educativos (colegiaturas)'),
                             ('P01','P01 Por definir'),
                             ],
-                            string="CFDI",
-                            required=True,
-                            default="Seleccion"
+                            string="Uso CFDI",
                             )

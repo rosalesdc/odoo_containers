@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Incrementar indice de productos",
+    'name': "Agregar columna con porcentaje calculado",
 
     'summary': """
     """,
 
     'description': """
-        Autoincrementar indices de productos por Web
+        Agregar columna con porcentaje calculado  al listado de productos al momento de venta
     """,
 
     'author': "Soluciones4G",
@@ -24,7 +24,7 @@
 
     # always loaded
 	'data': [
-	'views/porcentaje_rapaport_view.xml',
+        'views/add_rapaport_cost_view.xml',
     ],
 	'demo':[
 

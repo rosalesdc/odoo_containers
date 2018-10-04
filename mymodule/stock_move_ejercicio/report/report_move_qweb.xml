@@ -6,7 +6,8 @@
                 <span>
                     <t t-esc='o.name'/>
                 </span>
-                <table class="table table-condensed">
+                <h2>Encabezado del documento</h2>
+                <table class="table table-condensed" border="1">
                     <thead>
                         <tr>
                             <th>

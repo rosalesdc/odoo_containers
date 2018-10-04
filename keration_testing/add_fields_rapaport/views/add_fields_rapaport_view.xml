@@ -16,7 +16,7 @@
                         <group>
                             <field name="costo_quilate_usd"></field>
                             <field name="costo_total"></field>
-                            <field name="porcentaje_rap" />
+<!--                            <field name="porcentaje_rap" />-->
                         </group>
                     </group>                  
                 </xpath>

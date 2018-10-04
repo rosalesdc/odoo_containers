@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_stock_move">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <span>
+                    <t t-esc='o.name'/>
+                </span>
+                <h2>Encabezado del documento</h2>
+                <table class="table table-condensed" border="1">
+                    <thead>
+                        <tr>
+                            <th>
+                                <strong>Fecha</strong>
+                            </th>
+                            <th class="text-center">
+                                <strong>Ubicacion Destino</strong>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.move_line_ids" t-as="line">
+                            <td>
+                                <span t-field="line.date"/>
+                            </td>
+                            <td>
+                                <span t-field="line.location_dest_id"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+    <template id="reporte_productos_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="stock_move_ejercicio.report_stock_move" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

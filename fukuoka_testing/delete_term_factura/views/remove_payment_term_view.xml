@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="remove_payment_field" inherit_id="account.report_invoice_document">
+<!--        <xpath expr="//div[@name='invoice_address']/address[@t-field='o.partner_id']" position="replace">
+            <div name="invoice_address" class="col-xs-5 col-xs-offset-7">Hell0
+            </div>
+        </xpath>-->
+        <xpath expr="//p[@t-if='o.payment_term_id']" position="replace">
+            <div name="div_vacio">
+            </div>
+        </xpath>
+        <data 
+            id="remove_payment" 
+            inherit_id="account.report_invoice_document">
+        </data>
+    </template>
+</odoo>

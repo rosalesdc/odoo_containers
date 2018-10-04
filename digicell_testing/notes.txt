@@ -1,2 +1,6 @@
 1 de octubre
-    -Se añade campo de catálogo del EDI
+    -Se añade campo de catálogo del EDI (Modulo add_catalogo_edi)
+    -Se solicita añadir dos campos más a Productos +Clave alterna +Clave Unidad
+3 de octubre
+    -Se modifica el módulo add_fields_products, ya no se requiere clave_alterna ni clave_unidad
+    -Se agregan campos Clave Unidad y Código de Cuenta
