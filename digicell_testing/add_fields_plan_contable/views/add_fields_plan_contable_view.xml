@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="add_fields_plan_contable_form" model="ir.ui.view">
+            <field name="name">add.fields.plancontable.view.form</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="before">
+                    <field name="x_codigo_cuenta"></field>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+

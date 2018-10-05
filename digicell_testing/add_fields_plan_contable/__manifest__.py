@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Digicell - Agrega campos en Productos",
+    'name': "Digicell - Agrega campos en Plan Contable",
 
     'summary': """ 
     """,
 
     'description': """
-    Campos adicionales para productos
-    -Clave Unidad
+    Campos adicionales para Plan Contable
+    -Código de Cuenta
     """,
 
     'author': "Soluciones4G",
@@ -26,7 +26,7 @@
 
     # always loaded
 	'data': [
-	'views/add_fields_products_view.xml',
+	'views/add_fields_plan_contable_view.xml',
     ],
 	'demo':[
 

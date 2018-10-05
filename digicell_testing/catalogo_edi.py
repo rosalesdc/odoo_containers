@@ -30,5 +30,4 @@ class catalogo_edi(models.Model):
                             ('P01','P01 Por definir'),
                             ],
                             string="Uso CFDI",
-                            default='G01'
                             )
