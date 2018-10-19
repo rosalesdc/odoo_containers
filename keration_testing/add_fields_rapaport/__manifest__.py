@@ -40,6 +40,7 @@
         'data/piedra_laboratorios_data.xml',
         'data/piedra_pulidos_data.xml',
         'data/piedra_simetrias_data.xml',
+        'security/ir.model.access.csv',
 
 #    'views/new_wizard_view.xml',
 	'templates.xml',

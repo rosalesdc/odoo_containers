@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<template id="edicion_facturas_report" inherit_id="account.report_invoice_document">
+		<xpath expr="//h2" position="after">
+			<t t-if="o.partner_id.x_fukuoka_grupo">
+				<t t-if="o.partner_id.x_fukuoka_grupo.mostrar_en_facturas">
+					<t t-if="o.codigo_consecutivo_porgrupo">
+						<h3 t-field="o.codigo_consecutivo_porgrupo"/>
+					</t>
+				</t>
+			</t>
+		</xpath>
+	</template>
+</odoo>

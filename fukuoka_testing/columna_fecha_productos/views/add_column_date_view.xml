@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="add_column_date_view" model="ir.ui.view">
+            <field name="name">add.column.date.view</field>
+            
+            <field name="model">account.invoice.line</field>
+<!--            <field name="model">account.payment</field>-->
+            
+            <field name="inherit_id" ref="account.view_invoice_line_tree"></field>
+<!--            <field name="inherit_id" ref="account.view_account_payment_tree"></field>-->
+            
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='uom_id']" position="before">
+                    <field name="x_fecha_registro"></field>
+                </xpath>
+            </field>
+            
+<!--            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_date']" position="after">
+                    <field name="fecha_registro"></field>
+                </xpath>
+            </field>-->
+            
+        </record>
+    </data>
+</odoo>

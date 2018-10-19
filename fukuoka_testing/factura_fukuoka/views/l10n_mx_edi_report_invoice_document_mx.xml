@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<template id="l10n_mx_edi_report_invoice_document_mx" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@name='invoice_address']" position="replace">
+            <div name="invoice_address" class="col-xs-5 col-xs-offset-7">
+                <div>
+                    <span t-field="o.partner_id.name"/> <br/>
+                    <span t-field="o.partner_id.street_name"/>
+                    <span t-field="o.partner_id.street_number"/>/<span t-field="o.partner_id.street_number2"/>
+                    <br/>
+                    <span t-field="o.partner_id.state_id.code"/>
+                    <span t-field="o.partner_id.zip"/>
+                    <br/>
+                    <span t-field="o.partner_id.country_id"/>
+                </div>
+                <div t-if="o.partner_id.vat" class="mt16">
+                    <t t-esc="o.company_id.country_id.vat_label or 'RFC'"/>: <span t-field="o.partner_id.vat"/>
+                </div>
+
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('complement-details','col-xs-9')]/div[10]" position="replace">
+            <div class="digital-stamp-content">
+                <span>Certificado del Emisor:</span> <span t-esc="xml.get('noCertificado', xml.get('NoCertificado'))"/>
+                <span> | Lugar de Expedición:</span> <span t-esc="xml.get('LugarExpedicion')"/>
+                <span> | Régimen Fiscal:</span>
+                    <t t-if="xml.get('version', '') == '3.2'"> <span t-esc="xml.Emisor.RegimenFiscal.get('Regimen')"/></t>
+                    <t t-if="xml.get('Version', '') == '3.3'"> <span t-esc="xml.Emisor.get('RegimenFiscal', '')"/></t>
+                <span> | Fecha de Emisión:</span> <span t-esc="xml.get('fecha', xml.get('Fecha', '')).replace('T', ' ')"/>
+                <span> | Certificado SAT:</span> <span t-esc="tfd.get('NoCertificadoSAT')"/>
+                <span> | RFC Proveedor de Certificación:</span> <span t-esc="tfd.get('RfcProvCertif')"/>
+                <span> | Fecha de Certificación:</span> <span t-esc="tfd.get('FechaTimbrado', '').replace('T', ' ')"/>
+                <span> | Folio Fiscal (UUID):</span> <span t-esc="tfd.get('UUID')"/>
+            </div>
+        </xpath>
+        <data id="document_inherit_sale" inherit_id="sale.report_invoice_document_inherit_sale">
+            <xpath expr="//div[1]/div[hasclass('col-xs-5','col-xs-offset-1')]" position="replace">
+            </xpath>
+        </data>
+	</template>
+</odoo>

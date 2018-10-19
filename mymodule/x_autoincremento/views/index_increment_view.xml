@@ -7,8 +7,8 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="before">
-                    <field name="x_num_partida" />
-                    <field name="x_num_partida_computed" />
+                    <field name="x_num_partida" attrs="{'invisible':[('x_num_partida','!=',0)]}"/>
+                    <field name="x_num_partida_computed" attrs="{'invisible':[('x_num_partida','=',0)]}" readonly="1" tabindex="-1" invisible="1"/>
                 </xpath>
             </field>
         </record>

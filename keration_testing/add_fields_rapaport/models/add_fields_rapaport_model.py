@@ -17,8 +17,14 @@ class add_fields_rapaport_model(models.Model):
     medida = fields.Char(string='Medida')
     lote = fields.Boolean()
     numero_certificado = fields.Char(string='Numero de certificado')
+    
     parsel_code = fields.Char('Parsel Serial Number', default=lambda obj:
                               obj.env['ir.sequence'].next_by_code('parsel.code'))
+    _sql_constraints = [
+        ('field_unique', 
+         'unique(parsel_code)',
+         'Secuencia incorrecta, Parsel Serial Number repetido')
+        ]
 
     @api.onchange('numero_rapaport', 'descuento_rapaport', 'quilate')
     def _compute_costo_quilate_usd(self):

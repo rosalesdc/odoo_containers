@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="folios_form_view" model="ir.ui.view">
+			<field name="name">folios.form.view</field>
+			<field name="model">folio.datos</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+							<div class="oe_title">
+	                            <h1>
+	                                <field name="prefijo" placeholder="Prefijo" />
+	                            </h1>
+                        	</div>
+						<group>
+							<field name="secuencial" readonly="True"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="folios_tree_view" model="ir.ui.view">
+			<field name="name">folios.tree.view</field>
+			<field name="model">folio.datos</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="prefijo" />
+					<field name="secuencial" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="folios_search_view" model="ir.ui.view">
+			<field name="name">folios.search.view</field>
+			<field name="model">folio.datos</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="prefijo" />
+					<field name="secuencial" />
+				</search>
+			</field>
+		</record>
+
+		<record id="folios_menuaction" model="ir.actions.act_window">
+			<field name="name">Folios actuales</field>
+			<field name="res_model">folio.datos</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem
+            id="folios_menuitem"
+            name="Folios"
+            parent="base.menu_board_root"
+            sequence="10"
+            action="folios_menuaction"
+            />
+	</data>
+</odoo>

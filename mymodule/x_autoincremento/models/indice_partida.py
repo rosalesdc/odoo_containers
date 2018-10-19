@@ -17,12 +17,16 @@ class indice_partida(models.Model):
 #        print("hi2")
 #        return res_id
 
+    @api.model
     @api.multi
     def write(self, vals):
-        res = super(sale.order.line, self).write(vals)
+        #res = super(sale.order.line, self).write(vals)
         print ("hello")
         return res
     
+    #@api.constraint(x_num_partida,x_num_partida_compute)
+    
+
 #realiza en incremento utilizando dos columnas
     @api.multi
     def _write_values(self, self2=1):
@@ -58,7 +62,7 @@ class indice_partida(models.Model):
 #        return res_id
     
     x_num_partida = fields.Integer(string="Índice editable", default='0')
-    x_num_partida_computed = fields.Integer(string="Índice", default='0')#campo computado, depende de lo almacenado en la otra columna
+    x_num_partida_computed = fields.Integer(string="Índice", compute='_write_values', readonly=True)#campo computado, depende de lo almacenado en la otra columna
 
     #referencias:
     #https://stackoverflow.com/questions/41614321/how-can-i-override-a-save-action-in-odoo
