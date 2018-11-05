@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="remove_cp_text_field" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@name='invoice_address']/address[@t-field='o.partner_id']" position="replace">
+            <div name="invoice_address" class="col-xs-5 col-xs-offset-7">Hell0
+            </div>
+        </xpath>
+        <data 
+            id="remove_cp" 
+            inherit_id="account.report_invoice_document">
+        </data>
+    </template>
+</odoo>

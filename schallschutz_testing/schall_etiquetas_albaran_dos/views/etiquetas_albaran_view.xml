@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="etiquetas_albaran_dos" inherit_id="stock.view_picking_form">
+        <data 
+            id="etiquetas_albaran_dos" 
+            inherit_id="stock.view_picking_form">
+        </data>
+    </template>	
+</odoo>

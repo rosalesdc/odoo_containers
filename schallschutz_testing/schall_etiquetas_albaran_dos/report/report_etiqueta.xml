@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <report 
+            string="Reporte Etiquetas"
+            id="etiquetas_albaran_qweb"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="schall_etiquetas_albaran_dos.etiquetas_albaran_view"
+            file="schall_etiquetas_albaran_dos.etiquetas_albaran_view"
+        />
+    </data>
+</odoo>
