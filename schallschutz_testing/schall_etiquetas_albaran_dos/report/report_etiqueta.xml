@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <report 
-            string="Reporte Etiquetas"
+            string="Imprimir Etiquetas"
             id="etiquetas_albaran_qweb"
             model="stock.picking"
             report_type="qweb-pdf"

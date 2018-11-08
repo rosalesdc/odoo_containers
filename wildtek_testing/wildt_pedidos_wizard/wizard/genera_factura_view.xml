@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="genera_factura_view">
+            <field name="name">wizard.form</field>
+            <field name="model">wizard.genera.factura</field>
+            <field name="arch" type="xml">
+                <form string="description">
+                    <group>
+                        <field name="pedidos_ids"/>
+                    </group>
+                    <footer>
+                        <button string="Generar Factura de Pedidos" name="genera_factura" type="object" class="oe_highlight"/>
+                        <button string="Cancelar" class="btn-default" special="cancel"/>
+                    </footer>				
+                </form>
+            </field>
+        </record>
+        
+        <!--        Mandamos a llamar la vista de este archivo como un Wizard
+        los atributos ya definidos en odoo para este tipo de acciones(con múltiples registros)-->
+        <act_window
+            id="action_genera_factura"
+            multi="True"
+            key2="client_action_multi" 
+            name="Generar Facturota"
+            res_model="wizard.genera.factura"
+            src_model="pos.order"
+            view_mode="form"
+            target="new"/>
+    </data>
+</odoo>
