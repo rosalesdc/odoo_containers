@@ -35,6 +35,9 @@ class posInvoice(models.Model):
             'user_id': self.env.uid,
         }
 
+        
+    
+        
     @api.multi
     def action_invoices_create(self, grouped=False, final=False):
         """
@@ -44,17 +47,63 @@ class posInvoice(models.Model):
 		:param final: if True, refunds will be generated if necessary
 		:returns: list of created invoices
 		"""
+        #YO
+        ##VACIAR TODAS LAS LINEAS DE TODOS LOS PEDIDOS EN UNA LISTA
+        nueva_orden=[]
+        print("INICIAN LINEAS")
+        for order in self:
+            for line in order.lines:
+                nueva_orden.append(line)
+                #print(line.product_id.name,'|',line.qty,'|',line.price_unit,'|',line.discount,'|',line.tax_ids_after_fiscal_position,'|',line.price_subtotal,'|',line.price_subtotal_incl)
+        print("FIN DE LINEAS")
+        #####
         
+        ##VACIAR LINEAS CON PRODUCTOS NO REPETIDOS
+        nueva_orden2=[]
+        ft=True;
+        existe=False
+        print("INICIAN LINEAS SIN REPETIR")
+        for order in self:
+            print('hola nuevo for1')
+            for line in order.lines:
+                ##Ahora se itera el nuevo objeto en busca de elemento repetido
+                print('hola nuevo for2')
+                if ft:
+                    nueva_orden2.append(line)
+                    ft=False
+                    print('FT')
+                for registros in nueva_orden2:
+                    print('hola nuevo for3')
+                    print(registros.product_id.name,'??',line.product_id.name);
+                    if registros.product_id.name==line.product_id.name:
+                        print('elemento SI repetido')
+                        existe=True;
+                    else:
+                        print('elemento NO repetido')
+                        existe=False;
+                    if existe==True:
+                        break
+                if existe==False:
+                        nueva_orden2.append(line)
+        print("FIN DE LINEAS SIN REPETIR")
+        
+        print('INICIA CONTENIDO DE LA LISTA NUEVA::::::')
+        for registros in nueva_orden2:
+            print(registros.product_id.name,'\t|',registros.qty,'\t|',registros.price_unit,'\t|',registros.discount,'\t|',registros.tax_ids_after_fiscal_position,'\t|',registros.price_subtotal,'\t|',registros.price_subtotal_incl)
+        print('FIN CONTENIDO DE LA LISTA NUEVA::::::')
+        #####
+        #
+
         inv_obj = self.env['account.invoice']
         precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
-        invoices = {}
-        references = {}
-        for order in self:
+        invoices = {} # diccionarios
+        references = {} # diccionarios
+        for order in self: #ids seleccionados de pos.order
             if order.partner_id or not order.partner_id:
-                partner = self.env['res.partner'].search([('vat', '=', 'XAXX010101000')], limit=1)
+                partner = self.env['res.partner'].search([('vat', '=', 'XAXX010101000')], limit=1)#partner tiene todos los datos del RFC genérico
             group_key = order.id if grouped else (partner.id, order.pricelist_id.currency_id.id)
             if order.amount_total > 0:
-                for line in order.lines.sorted(key=lambda l: l.qty < 0):
+                for line in order.lines.sorted(key=lambda l: l.qty < 0): #varible line
                     if float_is_zero(line.qty, precision_digits=precision):
                         continue
                     if group_key not in invoices:
@@ -64,7 +113,7 @@ class posInvoice(models.Model):
                         invoices[group_key] = invoice
                     elif group_key in invoices:
                         print('group in invoices')
-                        vals={}
+                        vals = {}
                         if order.name not in invoices[group_key].origin.split(', '):
                             vals['origin'] = invoices[group_key].origin + ', ' + order.name
                         if order.pos_reference and order.pos_reference not in invoices[group_key].name.split(', ') and order.pos_reference != invoices[group_key].name:
@@ -154,10 +203,8 @@ class posOrderLineInvoices(models.Model):
             'uom_id': self.product_id.uom_id.id,
         }
         return res
-    
+
 class accountInvoicePos(models.Model):
     _inherit = 'account.invoice.line'
     pos_line_ids = fields.Many2many('pos.order.line', string='Lines de pedido TPV')
-    
-    
     

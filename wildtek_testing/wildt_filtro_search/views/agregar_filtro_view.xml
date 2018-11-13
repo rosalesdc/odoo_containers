@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="agrega_filtro_inherited" model="ir.ui.view">
+            <field name="name">agrega.filtro.inherited</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <filter string="Pagado" name="type_person" icon="terp-personal" domain="[('state','=','paid')]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>	
+</odoo>

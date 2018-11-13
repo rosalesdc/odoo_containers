@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Vista filtro heredada-->
+<!--        <record id="vista_filtro_pruebas_padre_herencia" model="ir.ui.view">
+            <field name="name">poner.filtro.default.herencia</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="context">
+                        {'search_default_paid_state': 1}
+                    </field>
+                </xpath>
+            </field>
+        </record>-->
+        <!-- Vista filtro heredada-->
+    </data>	
+</odoo>
+
+<!--<record id="module_name.record_id" model="record_model">
+    <field name="name">New record name</field>
+</record>-->
