@@ -8,7 +8,7 @@
                     <t t-set="has_serial_number" t-value="o.move_line_ids.filtered(lambda ml: ml.lot_id or ml.lot_name)" groups="stock.group_production_lot"/>
                     <div t-foreach="o.move_lines.sorted(key=lambda m: m.product_id.id)" t-as="move">
                         <t t-if="move.move_line_ids">
-                            <table>
+                            <table class="table table-bordered">
                                 <tr t-foreach="move.move_line_ids.sorted(key=lambda ml: ml.location_id.id)" t-as="ml">
                                     <td>
                                         Producto: 
@@ -55,12 +55,10 @@
                                         <span t-esc="user.name"></span>
                                         <br/>
                                         <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)" style="width:300px;height:50px" />
-                                        <br/>----------------------------------------------------------------<br/>
                                     </td>
                                 </tr>
                             </table>
                         </t>
-                        --
                     </div>
                 </div>
             </div>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="ops4g_invoice_lines_tree_view_inherited" model="ir.ui.view">
+			<field name="name">ops4g_invoice_lines_tree.inherited</field>
+			<field name="model">account.invoice.line</field>
+			<field name="inherit_id" ref="account.view_invoice_line_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='account_id']" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="ops4g_invoice_lines_search_view_inherited" model="ir.ui.view">
+			<field name="name">ops4g_invoice_lines.search.view</field>
+			<field name="model">account.invoice.line</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="partner_id" />
+					<field name="company_id" />
+					<field name="name" />
+					<field name="product_id" />
+				</search>
+			</field>
+		</record>
+
+		<record id="ops4g_invoice_lines_action_extended" model="ir.actions.act_window">
+			<field name="name">Productos facturados</field>
+			<field name="res_model">account.invoice.line</field>
+			<field name="domain">[('invoice_date', 'not like', ' ')]</field>
+			<field name="view_mode">tree,graph,pivot,form</field>
+		</record>
+
+		<menuitem
+			id="invoices_lines_extended_menuitem"
+			name="Productos facturados"
+			action="ops4g_invoice_lines_action_extended"
+			parent="account.menu_finance_receivables_documents"
+			/>
+	</data>
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="assets_backend" inherit_id="web.assets_backend">
+			<xpath expr="." position="inside">
+				<link rel="stylesheet" href="/edicion_facturas/static/src/css/my.css"/>
+			</xpath>
+		</template>
+
+		<record id="empresa_enfacturacion_view" model="ir.ui.view">
+			<field name="name">empresa_enfacturacion_view</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_tree"></field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="after">
+					<field name="empresa_relacionada" />
+					<field name="grupo_cliente" />
+				</xpath>
+
+				<xpath expr="//field[@name='residual_signed']" position="before">
+					<field name="ultimo_pago" />
+				</xpath>
+
+				<xpath expr="//field[@name='origin']" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</xpath>
+
+			</field>
+		</record>
+
+		<record id="empresa_enfacturacion_form_view" model="ir.ui.view">
+			<field name="name">empresa_enfacturacion_form_view</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"></field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="after">
+					<field name="empresa_relacionada" />
+					<field name="grupo_cliente" />
+				</xpath>
+				<xpath expr="//field[@name='team_id']" position="after">
+					<field name="codigo_consecutivo_porgrupo" readonly="True"/>					
+				</xpath>
+			</field>
+		</record>
+
+		<record id="empresa_enfacturacion_kanban_view" model="ir.ui.view">
+			<field name="name">ops4g.empresa_enfacturacion_kanban_view</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_kanban" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="after">
+					<field name="color_grupo" />
+				</xpath>
+				<xpath expr="//div" position="attributes">
+					<attribute name="t-attf-style">background-color: #{(record.color_grupo.raw_value)}</attribute>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

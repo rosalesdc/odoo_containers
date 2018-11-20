@@ -12,6 +12,7 @@
             
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='uom_id']" position="before">
+                    
                     <field name="x_fecha_registro"></field>
                 </xpath>
             </field>

@@ -52,7 +52,7 @@ class ClassName(models.TransientModel):
     def create_invoices(self):
         validacion = True
         print("Hello_create_invoices:::::::::::::::::::::::::::::::::::::::::::")
-        sale_orders = self.env['pos.order'].browse(self._context.get('active_ids')) #LE QUITÉ CORCHETES!!!!!
+        sale_orders = self.env['pos.order'].browse(self._context.get('active_ids'))#LE QUITÉ CORCHETES!!!!!
 
         for record in sale_orders:
             print("iterando[][][][][][][][[][", record.id)

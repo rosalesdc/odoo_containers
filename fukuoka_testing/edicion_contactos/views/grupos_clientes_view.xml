@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="grupos_clientes_kanban_view" model="ir.ui.view">
+			<field name="name">grupos_clientes.kanban_view</field>
+			<field name="model">ops4g_fukuoka.grupos</field>
+			<field name="arch" type="xml">
+				<kanban>
+					<field name="color" invisible="True"/>
+					<templates>
+						<t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click_edit oe_semantic_html_override oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}" t-attf-style="background-color: #{(record.color.raw_value)} ">
+
+                                <div t-attf-class="o_kanban_card_content">
+                                    <h1>
+                                    	<field name="name" />
+                                    </h1>
+                                </div>
+
+                            </div>
+                        </t>
+					</templates>
+				</kanban>
+
+			</field>
+		</record>
+
+		<record id="grupos_clientes_form_view" model="ir.ui.view">
+			<field name="name">grupos_clientes.form_view</field>
+			<field name="model">ops4g_fukuoka.grupos</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" placeholder="ej. Sinestesia" />
+							</h1>
+						</div>
+						<group>
+							<field name="color" widget="color"/>
+							<field name="codigo_facturas" />
+							<field name="mostrar_en_facturas" />
+						</group>
+						<notebook>
+							<page string="Clientes">
+								<field name="clientes_ids" nolabel="1">
+									<tree>
+										<field name="name" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="grupos_clientes_tree_view" model="ir.ui.view">
+			<field name="name">grupos_clientes.tree_view</field>
+			<field name="model">ops4g_fukuoka.grupos</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name" />
+					<field name="color" />
+					<field name="codigo_facturas" />
+					<field name="mostrar_en_facturas" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="grupos_clientes_action" model="ir.actions.act_window">
+			<field name="name">Grupos</field>
+			<field name="res_model">ops4g_fukuoka.grupos</field>
+			<field name="view_mode">kanban,tree,form</field>
+		</record>
+
+		<menuitem
+			id="grupos_clientes_ventas_menuitem"
+			name="Grupos"
+			action="grupos_clientes_action"
+			parent="sale.sale_order_menu"
+			/>
+
+		<menuitem
+			id="grupos_clientes_contactos_menuitem"
+			name="Grupos"
+			action="grupos_clientes_action"
+			parent="contacts.menu_contacts"
+			/>
+
+	</data>
+</odoo>

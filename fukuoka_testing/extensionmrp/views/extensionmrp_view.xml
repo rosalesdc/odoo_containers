@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="extension_production_order_form_view" model="ir.ui.view">
+            <field name="name">extension_orden_fabricacion_view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='origin']" position="attributes">
+                    <attribute name="string">Orden de venta origen</attribute>
+                    <attribute name="help">Tenga encuenta que si cambia el documento origen es probable que
+                        no se muestre el cliente ni el enlace a la orden de venta.
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="cliente" />
+                </xpath>
+
+                <xpath expr="//field[@name='cliente']" position="before">
+                    <field name="order_venta_origen"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="extension_production_order_tree_view" model="ir.ui.view">
+            <field name="name">extension_orden_fabricacion_tree_view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_tree_view"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="cliente" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mrp_work_order_tree_view_inherited" model="ir.ui.view">
+            <field name="name">extension_work_order_tree_view</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_tree_view_inherit" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='workcenter_id']" position="before">
+                    <field name="cliente_id" />
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

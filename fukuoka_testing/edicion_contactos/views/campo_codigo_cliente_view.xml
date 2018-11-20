@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="campo_codigocliente_view">
+			<field name="name">res.partner_campo_codigocliente_view.inherited</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"></field>
+			<field name="arch" type="xml">
+
+				<xpath expr="//field[@name='vat']" position="after">
+					<field name="x_fukuoka_codigo_cliente"></field>
+				</xpath>
+
+				<xpath expr="//field[@name='function']" position="before">
+					<field name="x_fukuoka_grupo" options="{'no_quick_create': True,'no_create_edit': True, 'no_open': True}"></field>
+				</xpath>
+
+			</field>
+		</record>
+	</data>
+</odoo>
