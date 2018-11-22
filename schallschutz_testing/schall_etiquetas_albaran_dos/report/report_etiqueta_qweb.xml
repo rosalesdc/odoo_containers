@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="report_etiquetas_albaran">
-        <t t-call="web.external_layout">
-            
+        <t t-call="web.basic_layout">
             <div class="page">
                 <p style="page-break-after:always;"></p>
                 <div t-if="o.move_line_ids">
@@ -10,6 +9,18 @@
                     <div t-foreach="o.move_lines.sorted(key=lambda m: m.product_id.id)" t-as="move">
                         <t t-if="move.move_line_ids">
                             <table t-foreach="move.move_line_ids.sorted(key=lambda ml: ml.location_id.id)" t-as="ml" class="table table-bordered">
+                                <tr>
+                                    <img class="img img-responsive" src="/schall_etiquetas_albaran_dos/static/src/schallx200.png"/>
+                                    <b>ALMACÉN DE MATERIA PRIMA</b>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        UBICACION
+                                    </td>
+                                    <td>
+                                        <span t-field="ml.location_dest_id"/>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>
                                         FECHA/HORA
@@ -82,7 +93,6 @@
                                         </td>
                                     </t>
                                 </tr>
-                                
                                 <!--                                <tr>
                                     <td>
                                         Cantidad (total)

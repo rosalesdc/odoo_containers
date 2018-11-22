@@ -6,7 +6,6 @@ Se hicieron modificaciones en la etiquetam está bien, pero se cambiará el form
 <odoo>
     <template id="report_etiquetas_albaran">
         <t t-call="web.external_layout">
-            
             <div class="page">
                 <div t-if="o.move_line_ids">
                     <t t-set="has_serial_number" t-value="o.move_line_ids.filtered(lambda ml: ml.lot_id or ml.lot_name)" groups="stock.group_production_lot"/>
