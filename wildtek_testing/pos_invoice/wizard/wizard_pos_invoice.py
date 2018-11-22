@@ -71,4 +71,3 @@ class ClassName(models.TransientModel):
             raise except_orm(_('Error'),
                  _('Se debe cancelar esta operación, selecciona únicamente pedidos en estado <Pagado>'))
                  #https://poncesoft.blogspot.com/2016/05/pop-up-ventanas-emergentes-odoo.html
-                 

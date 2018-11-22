@@ -12,6 +12,15 @@ from odoo.http import request
 from odoo.tools import float_is_zero
 import copy
 
+#class FacturaTransitoria(models.TransientModel):
+#     _name = 'factura.transitoria'
+#     
+#     def _get_lines_t(self):
+#         lista_transitoria=[]
+#         for line in self:
+#            lista_transitoria.append(line)
+#            print('clase transitoria')
+            
 
 class posInvoice(models.Model):
     _inherit = 'pos.order'
@@ -49,37 +58,42 @@ class posInvoice(models.Model):
         ##VACIAR TODAS LAS LINEAS DE TODOS LOS PEDIDOS EN UNA LISTA
         aux=[]
         nueva_orden=[]
+        lista_tuplas=[]
         print("Pintanto orden original...")
         for order in self:
             for line in order.lines:
-                print(line.product_id.id,'\t',line.product_id.name,'\t|',line.qty,'\t|',line.price_unit,'\t|',line.discount,'\t|',line.tax_ids_after_fiscal_position,'\t|',line.price_subtotal,'\t|',line.price_subtotal_incl)
+                print(line.id,'\t',line.product_id.id,'\t',line.product_id.name,'\t|',line.qty,'\t|',line.price_unit,'\t|',line.discount,'\t|',line.tax_ids_after_fiscal_position,'\t|',line.price_subtotal,'\t|',line.price_subtotal_incl)
         
-        print("Poniendo registros en lista auxiliar...")
+        print("Poniendo registros en lista auxiliar y tuplas...")
         for order in self:
-            print('pintando orden',str(order))
             for line in order.lines:
-                print('pintando lineas',str(line))
+                #print('pintando lineas',str(line))
+                tupla=(line.id,line.qty)
+                lista_tuplas.append(tupla)
                 aux.append(line)
-                for campos in line:
-                    print('campos',str(campos))
-            
-
-        print("Poniendo registros en lista auxiliar...")
-        for aux_lines in aux:
-            print('linea_aux',aux_lines.product_id.name)
-            for campos in aux_lines.lines:
-                print('campo',campos.product_id.name)
-                
-
+                            
         print("Pintando nueva orden...")
-        for registros in nueva_orden:
-            registros.price_unit+=1
-            print(registros.product_id.id,'\t',registros.product_id.name,'\t|',registros.qty,'\t|',registros.price_unit,'\t|',registros.discount,'\t|',registros.tax_ids_after_fiscal_position,'\t|',registros.price_subtotal,'\t|',registros.price_subtotal_incl)
+        for registros in aux:
+            registros.qty+=1
+            print(registros.id,'\t',registros.product_id.id,'\t',registros.product_id.name,'\t|',registros.qty,'\t|',registros.price_unit,'\t|',registros.discount,'\t|',registros.tax_ids_after_fiscal_position,'\t|',registros.price_subtotal,'\t|',registros.price_subtotal_incl)
+            
+        print('Regresando lineas originales...')
+        for registros in self:
+            for line in registros.lines:
+                print('id linea actual: ',line.id)
+                for elementos in lista_tuplas:
+                    print('recorriendo tupla',line.id,'??',elementos[0])
+                    if line.id==elementos[0]:
+                        line.qty=elementos[1]
+        
         print("Pintanto orden original")
         for order in self:
             for line in order.lines:
-                print(line.product_id.id,'\t',line.product_id.name,'\t|',line.qty,'\t|',line.price_unit,'\t|',line.discount,'\t|',line.tax_ids_after_fiscal_position,'\t|',line.price_subtotal,'\t|',line.price_subtotal_incl)
-        #VACIAR LINEAS CON PRODUCTOS NO REPETIDOS
+                print(line.id,'\t',line.product_id.id,'\t',line.product_id.name,'\t|',line.qty,'\t|',line.price_unit,'\t|',line.discount,'\t|',line.tax_ids_after_fiscal_position,'\t|',line.price_subtotal,'\t|',line.price_subtotal_incl)
+        
+        print('pintando tuplas')
+        for elementos in lista_tuplas:
+            print(elementos[0],'-',elementos[1])
         
         nueva_orden2=[]
         ft=True
@@ -201,6 +215,7 @@ class posInvoice(models.Model):
             invoice.message_post_with_view('mail.message_origin_link',
                                            values={'self': invoice, 'origin': references[invoice]},
                                            subtype_id=self.env.ref('mail.mt_note').id)
+        print('finalizando....')
         return [inv.id for inv in invoices.values()]
 
 class posOrderLineInvoices(models.Model):
