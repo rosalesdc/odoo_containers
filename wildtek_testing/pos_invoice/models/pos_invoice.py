@@ -10,17 +10,6 @@ import odoo.addons.decimal_precision as dp
 from odoo.exceptions import UserError
 from odoo.http import request
 from odoo.tools import float_is_zero
-import copy
-
-#class FacturaTransitoria(models.TransientModel):
-#     _name = 'factura.transitoria'
-#     
-#     def _get_lines_t(self):
-#         lista_transitoria=[]
-#         for line in self:
-#            lista_transitoria.append(line)
-#            print('clase transitoria')
-            
 
 class posInvoice(models.Model):
     _inherit = 'pos.order'
@@ -54,119 +43,112 @@ class posInvoice(models.Model):
 		:param final: if True, refunds will be generated if necessary
 		:returns: list of created invoices
 		"""
-        #YO
-        ##VACIAR TODAS LAS LINEAS DE TODOS LOS PEDIDOS EN UNA LISTA
+        ##PRUEBAS SOBRE REASIGNACION A LINEAS ORIGINALES-*-*-*-*-*-*-*-*-*-*-*-*-
         aux=[]
-        nueva_orden=[]
+        lista_tuplas2=[]
         lista_tuplas=[]
-        print("Pintanto orden original...")
+        """
+        print("Pintanto lineas originales...")
         for order in self:
             for line in order.lines:
                 print(line.id,'\t',line.product_id.id,'\t',line.product_id.name,'\t|',line.qty,'\t|',line.price_unit,'\t|',line.discount,'\t|',line.tax_ids_after_fiscal_position,'\t|',line.price_subtotal,'\t|',line.price_subtotal_incl)
-        
+        """
         print("Poniendo registros en lista auxiliar y tuplas...")
         for order in self:
             for line in order.lines:
-                #print('pintando lineas',str(line))
                 tupla=(line.id,line.qty)
                 lista_tuplas.append(tupla)
                 aux.append(line)
-                            
+        """                    
         print("Pintando nueva orden...")
         for registros in aux:
             registros.qty+=1
             print(registros.id,'\t',registros.product_id.id,'\t',registros.product_id.name,'\t|',registros.qty,'\t|',registros.price_unit,'\t|',registros.discount,'\t|',registros.tax_ids_after_fiscal_position,'\t|',registros.price_subtotal,'\t|',registros.price_subtotal_incl)
-            
+        """   
+        """
         print('Regresando lineas originales...')
         for registros in self:
             for line in registros.lines:
-                print('id linea actual: ',line.id)
+                #print('id linea actual: ',line.id)
                 for elementos in lista_tuplas:
-                    print('recorriendo tupla',line.id,'??',elementos[0])
+                    #print('recorriendo tupla',line.id,'??',elementos[0])
                     if line.id==elementos[0]:
                         line.qty=elementos[1]
-        
+        """
+        """
         print("Pintanto orden original")
         for order in self:
             for line in order.lines:
                 print(line.id,'\t',line.product_id.id,'\t',line.product_id.name,'\t|',line.qty,'\t|',line.price_unit,'\t|',line.discount,'\t|',line.tax_ids_after_fiscal_position,'\t|',line.price_subtotal,'\t|',line.price_subtotal_incl)
+        """
         
+        """
         print('pintando tuplas')
         for elementos in lista_tuplas:
             print(elementos[0],'-',elementos[1])
-        
+        """
+        ##PRUEBAS SOBRE REASIGNACION A LINEAS ORIGINALES-*-*-*-*-*-*-*-*-*-*-*-*-
+
         nueva_orden2=[]
         ft=True
         ft2=True
         existe=False
         
         print("INICIAN LINEAS SIN REPETIR")
-        
-#############BLOQUE DE LUIS
-#        for lineas in aux:
-#            for orders in aux:
-#                print(orders.product_id.name,'?\t?',lineas.product_id.name)
-#                if orders.product_id.id!=lineas.product_id.id:
-#                    nueva_orden2.append(orders)
-#                    print ('FOR LUIS 2')
-#        print("modificando nueva orden")
-#
-#        for registros in nueva_orden2:
-#            registros.price_unit+=1
-#            print(registros.product_id.id,'\t',registros.product_id.name,'\t|',registros.qty,'\t|',registros.price_unit,'\t|')
-#        print("Pintanto orden original...")
-#        for order in self:
-#            for line in order.lines:
-#                print(line.product_id.id,'\t',line.product_id.name,'\t|',line.qty,'\t|',line.price_unit,'\t|')
-#############BLOQUE DE LUIS
-
-
-
-#            if ft:
-#                #Se carga siempre el primer elemento al iniciar para que el siguiente for pueda empezar a iterar
-#                nueva_orden2.append(lineas)
-#                if aux is lineas: print('son iguales =(') 
-#                else: print ('NO SON IGUALES')
-#                ft=False
-#                print('FT')
-#            for registros in nueva_orden2:
-#                print('hola nuevo for3')
-#                print(registros.product_id.name,'??',lineas.product_id.name)
-#                if registros.product_id.id==lineas.product_id.id and registros.price_unit==lineas.price_unit:
-#                    if ft2:
-#                        ft2=False
-#                        existe=True
-#                        print('UNA VEZ')
-#                    else:
-#                        print('elemento SI repetido')
-#                        registros.qty+=lineas.qty
-#                        existe=True
-#                else:
-#                    print('elemento NO repetido')
-#                    existe=False
-#                if existe==True:
-#                    break
-#            if existe==False:
-#                print('aqui no llega')
-#                nueva_orden2.append(lineas)
-#        print("FIN DE LINEAS SIN REPETIR")
-#        print('INICIA CONTENIDO DE LA LISTA NUEVA::::::')
-#        for registros in nueva_orden2:
-#            print(registros.product_id.id,'\t',registros.product_id.name,'\t|',registros.qty,'\t|',registros.price_unit,'\t|',registros.discount,'\t|',registros.tax_ids_after_fiscal_position,'\t|',registros.price_subtotal,'\t|',registros.price_subtotal_incl)
-#        print('FIN CONTENIDO DE LA LISTA NUEVA::::::')
-        #####
-        #
-
+        for order in self:
+            print('hola nuevo for1')
+            for line in order.lines:
+                ##Se itera el nuevo objeto en busca de elemento repetido
+                print('hola nuevo for2')
+                if ft:
+                    #Se carga siempre el primer elemento al iniciar para que el siguiente for pueda empezar a iterar
+                    tupla2=(line.id,line.qty)
+                    lista_tuplas2.append(tupla2)
+                    nueva_orden2.append(line)
+#                    if aux is line: print('son iguales =(') 
+#                    else: print ('NO SON IGUALES')
+                    ft=False
+                    print('FT')
+                for registros in nueva_orden2:
+                    #print('hola nuevo for3')
+                    #print(registros.product_id.name,'??',line.product_id.name)
+                    if registros.product_id.id==line.product_id.id and registros.price_unit==line.price_unit:
+                        if ft2:
+                            ft2=False
+                            existe=True
+                            #print('UNA VEZ')
+                        else:
+                            #print('elemento SI repetido')
+                            registros.qty+=line.qty
+                            existe=True
+                    else:
+                        #print('elemento NO repetido')
+                        existe=False
+                    if existe==True:
+                        break
+                if existe==False:
+                    #print('aqui no llega')
+                    tupla2=(line.id,line.qty)
+                    lista_tuplas2.append(tupla2)
+                    nueva_orden2.append(line)
+        print("FIN DE LINEAS SIN REPETIR")
+        print('INICIA CONTENIDO DE LA LISTA NUEVA::::::')
+        for registros in nueva_orden2:
+            print(registros.product_id.id,'\t',registros.product_id.name,'\t|',registros.qty,'\t|',registros.price_unit,'\t|',registros.discount,'\t|',registros.tax_ids_after_fiscal_position,'\t|',registros.price_subtotal,'\t|',registros.price_subtotal_incl)
+        print('FIN CONTENIDO DE LA LISTA NUEVA::::::')
+        ####
+ 
         inv_obj = self.env['account.invoice']
         precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
         invoices = {}
         references = {}
+        ft=True
         for order in self:
             if order.partner_id or not order.partner_id:
                 partner = self.env['res.partner'].search([('vat', '=', 'XAXX010101000')], limit=1)
             group_key = order.id if grouped else (partner.id, order.pricelist_id.currency_id.id)
-            if order.amount_total > 0:
-                for line in order.lines.sorted(key=lambda l: l.qty < 0):
+            if ft==True:
+                for line in nueva_orden2:
                     if float_is_zero(line.qty, precision_digits=precision):
                         continue
                     if group_key not in invoices:
@@ -189,13 +171,14 @@ class posInvoice(models.Model):
                     elif line.qty < 0 and final:
                         print ('cantidad <<<< 0 and final', line.qty)
                         line.invoice_lines_create(invoices[group_key].id, line.qty)
+                    line.factura_acumulada=invoices[group_key].id #REGISTRA EN LA LINEA DE ORDEN, CUAL ES LA FACTURA DESTINO
                 if references.get(invoices.get(group_key)):
                     print ('if references get invoices group key', references[invoice])
                     if order not in references[invoices[group_key]]:
                         print ('if order not in references invoices', references[invoice], order)
                         references[invoice] = references[invoice] | order
-                order.write({'state':'invoiced'})
-
+            order.write({'state':'invoiced'})
+            ft=False
         if not invoices:
             raise UserError(_('There is no invoicable line.error 1'))
 
@@ -215,11 +198,26 @@ class posInvoice(models.Model):
             invoice.message_post_with_view('mail.message_origin_link',
                                            values={'self': invoice, 'origin': references[invoice]},
                                            subtype_id=self.env.ref('mail.mt_note').id)
+#        print('pintando tuplas2')
+#        for elementos in lista_tuplas2:
+#            print(elementos[0],'-',elementos[1])
+        print('Regresando lineas originales...')
+        for registros in self:
+            for line in registros.lines:
+                #print('id linea actual: ',line.id)
+                for elementos in lista_tuplas:
+                    #print('recorriendo tupla',line.id,'??',elementos[0])
+                    if line.id==elementos[0]:
+                        line.qty=elementos[1]    
         print('finalizando....')
+        
         return [inv.id for inv in invoices.values()]
 
 class posOrderLineInvoices(models.Model):
     _inherit = 'pos.order.line'
+    factura_acumulada = fields.Integer(#se había considerado un campo M2O con 'account.invoice', pero podría haber pedidos que no se facturen
+                                       string="Factura acumulada donde se registró",
+                                       )
 
     @api.multi
     def invoice_lines_create(self, invoice_id, qty):
@@ -242,7 +240,6 @@ class posOrderLineInvoices(models.Model):
     def _prepare_invoice_lines(self, qty):
         """
 		Prepare the dict of values to create the new invoice line for a sales order line.
-
 		:param qty: float quantity to invoice
 		"""
         self.ensure_one()
