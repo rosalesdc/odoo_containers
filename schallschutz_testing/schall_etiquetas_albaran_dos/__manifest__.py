@@ -21,10 +21,12 @@
     'depends': [
         'base',
         'barcodes',
+        'stock',
     ],
 
     # always loaded
     'data': [
+        'views/impresion_individual_icono.xml',
         'views/etiquetas_albaran_view.xml',
         'report/report_etiqueta.xml',
         'report/report_etiqueta_qweb.xml'

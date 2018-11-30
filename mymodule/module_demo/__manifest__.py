@@ -26,9 +26,7 @@
     # always loaded
     'data': [
         'views/persona_view.xml',
-        'data/personas_demo.xml',
         'views/product_inherited_view.xml',
-        'views/persona_lab.xml',
     ],
     'installable':True,
     'auto_install':False,

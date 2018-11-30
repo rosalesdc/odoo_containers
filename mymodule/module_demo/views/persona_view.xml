@@ -76,7 +76,7 @@
 			<field name="arch" type="xml">
 				<search>
 					<field name="name" />
-					<field name="edad" />
+					<field name="edad" sum="Edadwes" />
 					<field name="es_casado" />
 					<field name="sexo" />
 				</search>

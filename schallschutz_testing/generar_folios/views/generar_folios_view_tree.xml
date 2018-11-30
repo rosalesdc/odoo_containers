@@ -13,7 +13,6 @@
                 </tree>
             </field>
         </record>
-        
         <record model="ir.actions.act_window" id="core_generar_folios_view">
             <field name="name">Generar Folios</field>
             <field name="res_model">core_generador_folio</field>

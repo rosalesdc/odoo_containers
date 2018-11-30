@@ -23,6 +23,7 @@
     ],
     # always loaded
 	'data': [
+        'sequences/paca_sequence.xml',
 	'views/increment_lote_view.xml',
     ],
 	'demo':[

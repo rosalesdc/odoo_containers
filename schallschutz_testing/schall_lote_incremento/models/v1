@@ -1,0 +1,161 @@
+# - * - coding: utf-8 - * -
+from odoo import _
+from odoo import api
+from odoo import fields
+from odoo import models
+from odoo import exceptions
+
+class IncrementaLote(models.Model):
+    _inherit = 'stock.move.line'
+
+    @api.model
+    def _crear_numero_lote(self):
+        
+
+        active_id_ = self._context.get('active_id') 
+        rec = self.env['stock.move'].browse((active_id_))
+        print ('active id: '+str(active_id_))
+        
+        if rec.origin==False or rec.product_id.name== False:
+            matricula_tmp=''
+        else:
+            
+            
+            prefijoMatricula=str(rec.origin+'/'+rec.product_id.name+'/')
+            matricula_tmp = self.env['core_generador_folio'].getFolio(prefijoMatricula)
+            if not matricula_tmp:
+                formato_folio_id = self.env['core_formato_folio'].search([('formato', '=', "{prefijo}{contador}")]).id
+                dic = {
+                    'nombre_folio': "FOLIO" + prefijoMatricula,
+                    'prefijo': prefijoMatricula,
+                    'numero_zeros': 2,
+                    'contador': 0,
+                    'formato_fecha': "%y",
+                    'tipo_folio_id': formato_folio_id,
+                }
+                matricula_tmp = self.env['core_generador_folio'].createGenericFolio(dic)
+            
+        print(matricula_tmp)
+        return matricula_tmp
+
+#    @api.model
+#    def write(self):
+#        #Reinicia Secuencia
+#        secuencia = self.env['ir.sequence'].search([('code', '=','consecutivo.paca')])
+#        secuencia.number_next=(1)
+
+    lot_name = fields.Char(default=_crear_numero_lote)
+    
+
+#class ReiniciaSequencePicking(models.Model):
+#    _inherit = 'stock.picking'
+#     
+#    def view_init(self,self2=1):
+#        print('vista SHOWME PICKINGGG')
+#        secuencia = self.env['ir.sequence'].search([('code', '=','consecutivo.paca')])
+#        secuencia.number_next=(1)
+#
+
+
+#Reinicia cuando se confirma el pedido
+#class IniciaLineas(models.Model):
+#    _inherit = 'stock.move'
+#     
+#    @api.model
+#    def create(self,vals):
+#        picking = self.env['stock.picking'].browse(vals.get('picking_id'))
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////
+V2
+
+# - * - coding: utf-8 - * -
+from odoo import _
+from odoo import api
+from odoo import fields
+from odoo import models
+from odoo import exceptions
+from openerp.http import request
+from openerp import http
+
+
+class IncrementaLote(models.Model):
+    _inherit = 'stock.move.line'
+    
+
+    @api.model
+    def _crear_numero_lote(self):
+        active_id_ = self._context.get('active_id') 
+        rec = self.env['stock.move'].browse((active_id_))
+        print ('active id: '+str(active_id_))
+        
+        if rec.origin==False or rec.product_id.name== False:
+            matricula_tmp=''
+        else:
+#            print('::::::::::::::.')
+#            print(request.params['args'])
+#            print('::::::::::::::.')
+            
+#            active_m=self._context['active_model']
+#            print('modelo:::'+active_m)
+#            active_i=self._context['active_id']
+#            print('id:::'+str(active_i))
+#            conte=self.env[active_m].browse(active_i)
+#            print('conte:::'+conte.product_id.name)
+            
+            active_i=self._context
+            print('id:::'+str(active_i))
+            print('default move'+str(active_i['default_move_id']))
+            datas = {'ids': active_i.get('active_ids', [])}
+            print (datas)
+            
+            
+            
+            prefijoMatricula=str(rec.origin+'/'+rec.product_id.name+'/')
+            matricula_tmp = self.env['core_generador_folio'].getFolio(prefijoMatricula)
+            if not matricula_tmp:
+                formato_folio_id = self.env['core_formato_folio'].search([('formato', '=', "{prefijo}{contador}")]).id
+                dic = {
+                    'nombre_folio': "FOLIO" + prefijoMatricula,
+                    'prefijo': prefijoMatricula,
+                    'numero_zeros': 2,
+                    'contador': 0,
+                    'formato_fecha': "%y",
+                    'tipo_folio_id': formato_folio_id,
+                }
+                matricula_tmp = self.env['core_generador_folio'].createGenericFolio(dic)
+            
+        print(matricula_tmp)
+        return matricula_tmp
+
+#    @api.model
+#    def write(self):
+#        #Reinicia Secuencia
+#        secuencia = self.env['ir.sequence'].search([('code', '=','consecutivo.paca')])
+#        secuencia.number_next=(1)
+
+    lot_name = fields.Char(default=_crear_numero_lote)
+    
+
+#class ReiniciaSequencePicking(models.Model):
+#    _inherit = 'stock.picking'
+#     
+#    def view_init(self,self2=1):
+#        print('vista SHOWME PICKINGGG')
+#        secuencia = self.env['ir.sequence'].search([('code', '=','consecutivo.paca')])
+#        secuencia.number_next=(1)
+#
+
+
+#Reinicia cuando se confirma el pedido
+#class IniciaLineas(models.Model):
+#    _inherit = 'stock.move'
+#     
+#    @api.model
+#    def create(self,vals):
+#        picking = self.env['stock.picking'].browse(vals.get('picking_id'))

@@ -7,7 +7,6 @@
             <field name="arch" type="xml">
                 <tree string="Formato de Folio">
                     <field name="formato" placeholder="Formato"/>
-
                 </tree>
             </field>
         </record>
@@ -23,7 +22,6 @@
                             <field name="formato" placeholder="Formato"/>
                         </h1>
                     </div>
-
                 </form>
             </field>
         </record>

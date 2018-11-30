@@ -27,7 +27,7 @@ class CoreGeneradorFolios(models.Model):
 
     @api.multi
     def getFolio(self, par_prefijo_folio):
-        coreFolio = self.env['core_generador_folio'].search([('prefijo', '=', par_prefijo_folio)])
+        coreFolio = self.env['core_generador_folio'].search([('prefijo','=', par_prefijo_folio)])
         folio = ""
         if coreFolio:
             contador_actual = coreFolio.contador + coreFolio.incrementar
