@@ -7,11 +7,9 @@ from odoo import exceptions
 from openerp.http import request
 from openerp import http
 
-
 class IncrementaLote(models.Model):
     _inherit = 'stock.move.line'
     
-
     @api.model
     def _crear_numero_lote(self):
         active_id_=self._context
@@ -20,7 +18,16 @@ class IncrementaLote(models.Model):
             matricula_tmp=''
         else:
             rec = self.env['stock.move'].browse((active_id_['default_move_id']))
-            prefijoMatricula=str(rec.origin+'/'+rec.product_id.name+'/')
+            #prefijoMatricula=str(rec.origin+'/'+rec.product_id.name+'/') modificando, para checar si el escaner puede leer
+            #GENERAR NUEVOS NOMBRES DE PACAS
+            #print('Orden almacenada: '+rec.origin)
+            norden=str(rec.origin)
+            norden=norden[2:len(norden)]
+            #print('Nueva Orden: '+norden)
+            #print('Codigo Barras: '+str(rec.product_id.barcode))
+            #print('nuevo codigo: '+norden+str(rec.product_id.barcode))
+            #GENERAR NUEVOS NOMBRES DE PACAS
+            prefijoMatricula=norden+str(rec.product_id.barcode)
             matricula_tmp = self.env['core_generador_folio'].getFolio(prefijoMatricula)
             if not matricula_tmp:
                 formato_folio_id = self.env['core_formato_folio'].search([('formato', '=', "{prefijo}{contador}")]).id
@@ -44,6 +51,20 @@ class IncrementaLote(models.Model):
 
     lot_name = fields.Char(default=_crear_numero_lote)
     
+class ModCodigo_Barras(models.Model):
+    _inherit = 'product.product'
+    barcode = fields.Char(required=True, size = 4)
+ 
+    @api.constrains('barcode')
+    def check_name(self):
+        """ El campo debe contener 4 caracteres"""
+        for rec in self:
+            if len(rec.barcode)==4:
+                print('todo bien')
+                continue
+            else:
+                print('error')
+                raise exceptions.ValidationError(_('Codigo de Barras debe ser exactamente de 4 caracteres'))
 
 #class ReiniciaSequencePicking(models.Model):
 #    _inherit = 'stock.picking'
@@ -53,7 +74,6 @@ class IncrementaLote(models.Model):
 #        secuencia = self.env['ir.sequence'].search([('code', '=','consecutivo.paca')])
 #        secuencia.number_next=(1)
 #
-
 
 #Reinicia cuando se confirma el pedido
 #class IniciaLineas(models.Model):

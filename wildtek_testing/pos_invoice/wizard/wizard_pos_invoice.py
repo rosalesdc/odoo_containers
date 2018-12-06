@@ -56,7 +56,7 @@ class ClassName(models.TransientModel):
 
         for record in sale_orders:
             #print("iterando[][][][][][][][[][", record.id)
-            if str(record.state) == 'invoiced' or str(record.state) == 'done':#invoiced - done
+            if str(record.state) == 'invoiced':#invoiced - done  or str(record.state) == 'done'
                 print('Seleccion incorrecta: Solo se deben seleccionar Pagados')
                 validacion = False
 

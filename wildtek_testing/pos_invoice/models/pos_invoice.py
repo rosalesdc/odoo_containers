@@ -133,8 +133,8 @@ class posInvoice(models.Model):
                     nueva_orden2.append(line)
         print("FIN DE LINEAS SIN REPETIR")
         print('INICIA CONTENIDO DE LA LISTA NUEVA::::::')
-        for registros in nueva_orden2:
-            print(registros.product_id.id,'\t',registros.product_id.name,'\t|',registros.qty,'\t|',registros.price_unit,'\t|',registros.discount,'\t|',registros.tax_ids_after_fiscal_position,'\t|',registros.price_subtotal,'\t|',registros.price_subtotal_incl)
+        #for registros in nueva_orden2:
+            #print(registros.product_id.id,'\t',registros.product_id.name,'\t|',registros.qty,'\t|',registros.price_unit,'\t|',registros.discount,'\t|',registros.tax_ids_after_fiscal_position,'\t|',registros.price_subtotal,'\t|',registros.price_subtotal_incl)
         print('FIN CONTENIDO DE LA LISTA NUEVA::::::')
         ####
  
@@ -233,7 +233,7 @@ class posOrderLineInvoices(models.Model):
             if not float_is_zero(qty, precision_digits=precision):
                 vals = line._prepare_invoice_lines(qty=qty)
                 vals.update({'invoice_id': invoice_id, 'pos_line_ids': [(6, 0, [line.id])]})
-                print ('vals line create ', vals)
+                #print ('vals line create ', vals)
                 self.env['account.invoice.line'].create(vals)
 
     @api.multi
