@@ -1,0 +1,44 @@
+Traceback (most recent call last):
+  File "/odoo/odoo-server/odoo/http.py", line 650, in _handle_exception
+    return super(JsonRequest, self)._handle_exception(exception)
+  File "/odoo/odoo-server/odoo/http.py", line 310, in _handle_exception
+    raise pycompat.reraise(type(exception), exception, sys.exc_info()[2])
+  File "/odoo/odoo-server/odoo/tools/pycompat.py", line 87, in reraise
+    raise value
+  File "/odoo/odoo-server/odoo/http.py", line 692, in dispatch
+    result = self._call_function(**self.params)
+  File "/odoo/odoo-server/odoo/http.py", line 342, in _call_function
+    return checked_call(self.db, *args, **kwargs)
+  File "/odoo/odoo-server/odoo/service/model.py", line 97, in wrapper
+    return f(dbname, *args, **kwargs)
+  File "/odoo/odoo-server/odoo/http.py", line 335, in checked_call
+    result = self.endpoint(*a, **kw)
+  File "/odoo/odoo-server/odoo/http.py", line 936, in __call__
+    return self.method(*args, **kw)
+  File "/odoo/odoo-server/odoo/http.py", line 515, in response_wrap
+    response = f(*args, **kw)
+  File "/odoo/odoo-server/addons/web/controllers/main.py", line 938, in call_button
+    action = self._call_kw(model, method, args, {})
+  File "/odoo/odoo-server/addons/web/controllers/main.py", line 926, in _call_kw
+    return call_kw(request.env[model], method, args, kwargs)
+  File "/odoo/odoo-server/odoo/api.py", line 689, in call_kw
+    return call_kw_multi(method, model, args, kwargs)
+  File "/odoo/odoo-server/odoo/api.py", line 680, in call_kw_multi
+    result = method(recs, *args, **kwargs)
+  File "/odoo/enterprise/addons/l10n_mx_edi_landing/models/account_invoice.py", line 16, in action_invoice_open
+    return super(AccountInvoice, self).action_invoice_open()
+  File "/odoo/enterprise/addons/l10n_mx_edi_customs/models/account_invoice.py", line 41, in action_invoice_open
+    return super(AccountInvoice, self).action_invoice_open()
+  File "/odoo/odoo-server/addons/account/models/account_invoice.py", line 780, in action_invoice_open
+    return to_open_invoices.invoice_validate()
+  File "/odoo/enterprise/addons/l10n_mx_edi/models/account_invoice.py", line 966, in invoice_validate
+    record._l10n_mx_edi_retry()
+  File "/odoo/enterprise/addons/l10n_mx_edi/models/account_invoice.py", line 921, in _l10n_mx_edi_retry
+    cfdi_values = inv._l10n_mx_edi_create_cfdi()
+  File "/odoo/enterprise/addons/l10n_mx_edi_external_trade/models/account_invoice.py", line 54, in _l10n_mx_edi_create_cfdi
+    return super(AccountInvoice, self)._l10n_mx_edi_create_cfdi()
+  File "/odoo/enterprise/addons/l10n_mx_edi/models/account_invoice.py", line 880, in _l10n_mx_edi_create_cfdi
+    values['certificate'] = certificate_id.sudo().get_data()[0]
+  File "/odoo/enterprise/addons/l10n_mx_edi/models/certificate.py", line 98, in get_data
+    certificate = crypto.load_certificate(crypto.FILETYPE_PEM, cer_pem)
+NameError: name 'crypto' is not defined

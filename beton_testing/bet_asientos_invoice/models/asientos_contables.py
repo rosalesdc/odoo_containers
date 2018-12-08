@@ -15,19 +15,20 @@ class asientosContables(models.Model):
     #cada factura se relaciona con un asiento
     asiento_ids = fields.Many2many('account.move', string='Asientos')
         
-    def _prepare_asientos(self,monto_impuesto):
+    def _prepare_asientos(self,monto_impuesto,fecha_pago):
         """
         Prepara el diccionario de datos para crear el nuevo asiento
 	"""
         return {
             'ref':self.number
-            ,'journal_id':'3'#Checar a qué diario se debe hacer referencia
+            ,'journal_id':'6' #Diario: Effectively Paid (MXN)
             ,'amount':monto_impuesto
+            ,'date':fecha_pago
             #,'partner_id':self.partner_id
 		}
     
     @api.multi
-    def action_crear_asientos(self,monto_iva,empresa):
+    def action_crear_asientos(self,monto_iva,empresa,fecha_vencimiento,fecha_pago):
         asiento_obj = self.env['account.move']
         #asientos = {}
         #references = {}
@@ -37,14 +38,13 @@ class asientosContables(models.Model):
 #                print('haciendo algo')
 #                asiento_contable = asiento_obj.create(asiento_data)
         for facturas in self: 
-            asiento_data=facturas._prepare_asientos(monto_iva)
-            print('haciendo algo')
+            asiento_data=facturas._prepare_asientos(monto_iva,fecha_pago)
+            #print('haciendo algo')
             asiento_contable = asiento_obj.create(asiento_data) #regresa un objeto account_move
-            print(type(asiento_contable))
-            
+            #print(type(asiento_contable))
             linea_obj=asiento_contable.env['account.move.line']
-            print(type(linea_obj))
-            linea_asiento=linea_obj.asiento_lines_create(asiento_contable.id,empresa,monto_iva)
+            #print(type(linea_obj))
+            linea_asiento=linea_obj.asiento_lines_create(asiento_contable.id,empresa,monto_iva,fecha_vencimiento)
             print(asiento_contable.partner_id.name)
             #linea_asiento=linea_obj.asiento_lines_create(asiento_contable.id,asiento_contable.partner_id,monto_iva)
             
@@ -53,7 +53,7 @@ class asientosLines(models.Model):
     _inherit = 'account.move.line'    
     
     @api.multi
-    def asiento_lines_create(self, asiento_id, empresa, debe_haber):
+    def asiento_lines_create(self, asiento_id, empresa, debe_haber,fecha_vencimiento):
 	"""
         Crea las líneas para los asientos contables
 	"""
@@ -63,7 +63,7 @@ class asientosLines(models.Model):
         ,'partner_id':empresa
         ,'name':'118.01 IVA acreditable pagado'
         ,'debit':debe_haber
-        ,'date_maturity':'06-12-2018'
+        ,'date_maturity':fecha_vencimiento
         }
         vals_haber={
         'move_id':asiento_id
@@ -71,7 +71,7 @@ class asientosLines(models.Model):
         ,'partner_id':empresa
         ,'name':'119.01 IVA pendiente de pago'
         ,'credit':debe_haber
-        ,'date_maturity':'06-12-2018'
+        ,'date_maturity':fecha_vencimiento
         }
         self.create(vals_debe)
 	self.create(vals_haber)
