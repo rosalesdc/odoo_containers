@@ -28,40 +28,67 @@ class Wizard_Asientos_Invoice(models.TransientModel):
 #                print('CUENTA: '+str(line.account_id.name))
         monto_impuesto=0
         lineas_impuesto=0
+        procesar_factura=True
+        factura_sin_procesar=""
+        factura_noproceso = self.env['factura.noprocesada']
         for facturas in facturas_todas:
             fecha_pago='1970-01-01'
-            print('desde facturas todas: '+str(facturas.number))
-            print(type(facturas))
-            ##Verificacion todas las facturas seleccionadas no tienen la columna de impuestos
+            #print('desde facturas todas: '+str(facturas.number))
+            #print(type(facturas))
+            ##INICIA Verificacion todas las facturas seleccionadas no tienen la columna de impuestos
             empresa=facturas.partner_id.id
             fecha_vencimiento=facturas.date_due
             for invoices_lin in facturas.invoice_line_ids:
-                lineas_impuesto=invoices_lin.invoice_line_tax_ids.amount
+                lineas_impuesto=invoices_lin.invoice_line_tax_ids.amount ##AQUI ERRORRRR!!!!!
                 if lineas_impuesto != 0:
-                    raise UserError(_('Factura seleccionada con impuestos en columnas: '+facturas.number))
-            ##Verificacion todas las facturas seleccionadas no tienen la columna de impuestos
-            for lines in facturas.tax_line_ids:
-                print('Impuesto: '+str(lines.name))
-                print('Importe: '+str(lines.amount))
-                print('Cuenta: '+str(lines.account_id.name)+'ID cuenta: '+str(lines.account_id.id))
-                if lines.account_id.id==13:
-                    monto_impuesto=lines.amount
-             
+                    procesar_factura=False
+                    print ("e,1,"+str(facturas.number))
+                    factura_sin_procesar=factura_noproceso.createRegistroFactura('e,1',str(facturas.number))
+                    #raise UserError(_('Factura seleccionada con impuestos en columnas: '+facturas.number))
+            ##FINALIZA Verificacion todas las facturas seleccionadas no tienen la columna de impuestos
+            
+            if procesar_factura:
+                for lines in facturas.tax_line_ids:
+                    #print('Impuesto: '+str(lines.name))
+                    #print('Importe: '+str(lines.amount))
+                    #print('Cuenta: '+str(lines.account_id.name)+'ID cuenta: '+str(lines.account_id.id))
+                    if lines.account_id.id==13:
+                        if lines.amount>=0: #hay líneas con valores negativos y no se consideran, hay líneas con positivos y con ceros, estás si se consideran
+                            monto_impuesto+=lines.amount
+                        else:
+                            procesar_factura=False;
+                            print ("e,2,"+str(facturas.number))
+                            factura_sin_procesar=factura_noproceso.createRegistroFactura('e2',str(facturas.number))
+            
             #Verificar que las lineas de abajo sí tengan el impuesto registrado(de otra forma saldrían asientos con 0)
-            print('monto de la cuenta 13: '+str(monto_impuesto))
-            if monto_impuesto == 0:
-                raise UserError(_('Factura con lineas inferiores sin registro de IVA o en cero: '+facturas.number))
+            #print('monto de la cuenta 13: '+str(monto_impuesto))
+            if procesar_factura:
+                if monto_impuesto == 0:
+                    procesar_factura=False
+                    print('e,3,'+str(facturas.number))
+                    factura_sin_procesar=factura_noproceso.createRegistroFactura('e3',str(facturas.number))
+                    #raise UserError(_('Factura con lineas inferiores sin registro de IVA o en cero: '+facturas.number))
             #Verificar que las lineas de abajo sí tengan el impuesto registrado(de otra forma saldrían asientos con 0)
             
             #Obtener fecha de último pago para la fecha del asiento
-            for pagos in facturas.payment_ids:
-                fecha_linea=pagos.payment_date
-                fecha_pago=self.obtener_fecha_posterior(fecha_pago,fecha_linea)
-            if fecha_pago=='' or fecha_pago=='1970-01-01':
-                raise UserError(_('Error en fecha de pagos, sin pago?: '+facturas.number))
+            if procesar_factura:
+                for pagos in facturas.payment_ids:
+                    fecha_linea=pagos.payment_date
+                    fecha_pago=self.obtener_fecha_posterior(fecha_pago,fecha_linea)
+            
+            if procesar_factura:
+                if fecha_pago=='' or fecha_pago=='1970-01-01':
+                    procesar_factura=False
+                    print('e,4,'+str(facturas.number))
+                    factura_sin_procesar=factura_noproceso.createRegistroFactura('e4',str(facturas.number))
+                    #raise UserError(_('Error en fecha de pagos, sin pago?: '+facturas.number))
             #Obtener fecha de último pago para la fecha del asiento
             
-            facturas.action_crear_asientos(monto_impuesto,empresa,fecha_vencimiento,fecha_pago)
+            if procesar_factura:
+                facturas.action_crear_asientos(monto_impuesto,empresa,fecha_vencimiento,fecha_pago)
+                
+            monto_impuesto=0
+            procesar_factura=True
     
     def obtener_fecha_posterior(self,fecha_1,fecha_2):
         if fecha_1>=fecha_2:
@@ -71,3 +98,4 @@ class Wizard_Asientos_Invoice(models.TransientModel):
         
     
     invoices_ids = fields.Many2many('account.invoice', string='Facturas', default=default_invoices)
+

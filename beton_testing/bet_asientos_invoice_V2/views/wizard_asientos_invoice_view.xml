@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="wizard_asientos_invoice_view">
+            <field name="name">wizard.asientos.invoice</field>
+            <!-- vamos a trabajar con el model que creamos (wizard_deletion) sin heredar de otra-->
+            <field name="model">wizard_asientos_invoice</field>
+            <field name="arch" type="xml">
+                <form string="description">
+                    <form string="description">
+                        <group>
+                            <field name="invoices_ids"/>
+                        </group>
+                        <footer>
+                            <button string="Crear Asientos Contables" name="procesar_asientos" type="object" class="oe_highlight"/>
+                            <button string="Cancelar" class="btn-default" special="cancel"/>
+                        </footer>				
+                    </form>
+                </form>
+            </field>
+        </record>
+        
+        <!--        Mandamos a llamar la vista de este archivo como un Wizard
+        los atributos ya definidos en odoo para este tipo de acciones(con múltiples registros)-->
+        <act_window
+            id="action_crear_asientos"
+            multi="True"
+            key2="client_action_multi" 
+            name="Crear asientos"
+            res_model="wizard_asientos_invoice"
+            src_model="account.invoice"
+            view_mode="form"
+            target="new"/>
+    </data>
+</odoo>

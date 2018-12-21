@@ -5,7 +5,6 @@ from odoo import exceptions
 from odoo import fields
 from odoo import models
 
-
 class IncrementaLote(models.Model):
     _inherit = 'stock.move.line'
     

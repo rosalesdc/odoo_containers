@@ -29,7 +29,8 @@ class add_fields_rapaport_model(models.Model):
     @api.onchange('numero_rapaport', 'descuento_rapaport', 'quilate')
     def _compute_costo_quilate_usd(self):
         for record in self:
-            self.costo_quilate_usd = (100 * self.numero_rapaport) * (1-(self.descuento_rapaport / 100))
+            #self.costo_quilate_usd = (100 * self.numero_rapaport) * (1-(self.descuento_rapaport / 100))
+            self.costo_quilate_usd =self.numero_rapaport-(self.numero_rapaport*self.descuento_rapaport/100)
             if self.costo_quilate_usd < 0.0:
                 raise exceptions.ValidationError(_("No puedes tener un costo negativo"))
             else:
