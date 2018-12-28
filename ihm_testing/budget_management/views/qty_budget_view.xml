@@ -7,7 +7,6 @@
 			<field name="arch" type="xml">
 				<form string="Budget Quantity">
 					<sheet>
-                                            HELLO
 						<group>
 							<field name="name" />
 							<field name="qty" />
@@ -27,7 +26,10 @@
 					<field name="name" />
 					<field name="qty" />
 					<field name="uom_id" />
-                                        <field name="cantidad_total"/>
+					<field name="cantidad_total"/>
+					<field name="executed"/>
+					<field name="executed_cost"/>
+					<field name="percentage"/>
 				</tree>
 			</field>
 		</record>

@@ -19,7 +19,7 @@ class projectPicking(models.Model):
 		project_loc = self.env['stock.location'].search([('name', '=', self.name)])
 		project_out = self.env['stock.location'].search(['&',('name', '=', self.name),
 			('usage', '=', 'customer')])
-		#print('project i¿out',str(project_out))
+		print('project i¿out',str(project_out))
 		ubicacion = self.env.ref('stock.stock_location_stock').id
 		if not parent:
 			for record in project_loc:

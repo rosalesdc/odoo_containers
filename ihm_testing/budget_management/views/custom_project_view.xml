@@ -28,6 +28,7 @@
 				position="before">
 				<field name="budget" />
 				<field name="executed" />
+				<field name="executed_cost" invisible="1"/>
 			</xpath>
 			<xpath
 				expr="//field[@name='product_list_ids']/tree//field[@name='task_id']"
@@ -60,6 +61,21 @@
 		<field name="arch" type="xml">
 			<xpath expr="//field[@name='type']" position="after">
 				<field name="x_fecha_requerida" />
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="edit_project_inherit_project_tree_view"
+		model="ir.ui.view">
+		<field name="name">project.project.tree.view.inherit.project
+		</field>
+		<field name="model">product.list</field>
+		<field name="inherit_id"
+			ref="project_product_list.product_list_tree" />
+		<field name="arch" type="xml">
+		
+		   <xpath expr="//field[@name='date']" position="after">
+				<field name="status_pro" />
 			</xpath>
 		</field>
 	</record>

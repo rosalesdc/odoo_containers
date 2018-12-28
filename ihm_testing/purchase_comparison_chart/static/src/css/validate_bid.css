@@ -130,6 +130,42 @@
     color: #fff;
 }
 
+
+
 .bk_butn{
     box-shadow: 3px 3px 2px 0px #a59fa899;
 }
+
+
+
+.color_pick{
+    background:  #87597c !important;
+    
+}
+
+.color_pick1{
+    background:  #948e93 !important;	
+    
+}
+
+.color_pick2{
+    background: #bdb7bc !important;
+    
+}
+
+
+/* .pdiv1 .fixed_columns{
+  position:absolute;
+}
+.column2{left: 100px;}
+.column3{left: 200px;}
+.column4{left: 300px;}
+.column5{left: 400px;}
+.column6{left: 500px;}
+.column7{left: 600px;}
+.column8{left: 700px;}
+.column9{left: 800px;}
+.column10{left: 900px;}
+
+tr .col_new{margin-left: 1000px;} */
+

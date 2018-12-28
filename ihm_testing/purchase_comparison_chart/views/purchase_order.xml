@@ -19,13 +19,27 @@
                 </form>
             </field>
         </record>
-
+<!-- 
         <act_window id="action_purchase_comparision"
             multi="True"
             key2="client_action_multi" name="Purchase Comparision"
             res_model="purchase.order.compare.confirm" src_model="purchase.order"
-            view_mode="form" target="new" view_type="form" />
-
+            view_mode="form" target="new" view_type="form" /> -->
+             
+            
+ <record id="action_purchase_comparision" model="ir.actions.server">
+   <field name="name">Purchase Comparison</field>
+   <field name="type">ir.actions.server</field>
+   <field name="model_id" ref="purchase_comparison_chart.model_purchase_order" />
+   <field name="state">code</field>
+   <field name="code">
+    if record:
+    action = record.compare_purchase_orders()
+   </field>
+  </record>
+  
+  
+    
 		
 	</data>
 </odoo>

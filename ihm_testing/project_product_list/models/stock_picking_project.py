@@ -11,14 +11,16 @@ class stockPickingProject(models.Model):
 
 	@api.model
 	def get_analytic_id(self):
-		if self.x_cuenta_analitica != False:
-			return self.get_product_stock()
+		for record in self:
+			if record.x_cuenta_analitica != False:
+				return record.get_product_stock()
 
 	@api.multi
 	def get_product_stock(self):
 		for record in self.move_lines:
 			print('PRODUCTOS-<<<>>>',str(record))
-			record.move_line_ids.sudo().write({'x_proyecto_id':record.x_proyecto.id})
+			for move in record.move_line_ids:
+				move.sudo().write({'x_proyecto_id':record.x_proyecto.id})
 
 class stockMoveProject(models.Model):
 	_inherit = 'stock.move'

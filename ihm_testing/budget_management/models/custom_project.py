@@ -18,14 +18,16 @@ class productList(models.Model):
     @api.multi
     @api.onchange('product_list_ids')   
     def _onchange_cantidad(self):      
-        cate_id = self.env['product.category'].search([])
+        cate_id = self.env['product.category'].search([])        
         for cate in cate_id:
             amount = 0.0
             for line in self.product_list_ids:
                 if line.product.categ_id.id == cate.id:
                     amount += line.cantidad 
-                    if amount > line.budget:
+                    if (amount+line.executed) > line.budget:
                         line.status = 'over_budget' 
+                    else:
+                        line.status = 'available' 
                     
     @api.one
     def _display_count(self):
@@ -34,8 +36,29 @@ class productList(models.Model):
 
             self.purchase_count= len(count_id)
             
+            
+    @api.one
+    def _display_status(self):
+#         if self.state =='purchase': 
+#             self.status_pro ="Processed"
+#         else:
+#             self.status_pro ="Not Processed" 
+            
+        status_id = self.env['purchase.order.line'].search([
+            ('order_id.product_list_id','=',self.name),
+            ('order_id.x_cuenta_analitica_id','=',self.project_id.analytic_account_id.id),
+            ('order_id.state','in',('purchase','cancel'))
+        ])
+        if status_id:
+            self.status_pro ="processed"
+        else:
+            self.status_pro ="not_processed"   
+
+         
+            
     status_compute = fields.Boolean(compute="_compute_status",string="Line Status Check")
     purchase_count= fields.Integer(string="Purchase Count",compute="_display_count")
+    status_pro = fields.Selection([('processed', "Processed"), ('not_processed', "Not Processed")],"Status",compute="_display_status",default='not_processed')  
     
     @api.multi
     def view_purchase_order(self):
@@ -70,63 +93,28 @@ class productList(models.Model):
                 raise ValidationError(_('The Product Quantities not in Budget.'))
         self.state = 'done'
         self.write({'is_locked':True})
-#         
-#         ir_model_data = self.env['ir.model.data']
-# #         compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
-#         form_view = ir_model_data.get_object_reference('budget_management','view_vendor_quotation')[1]
-#         print(form_view)
-#     @api.model
-#     def create(self, vals):
-#         res = super(productList, self).create(vals)  
-#         for rec in res.product_list_ids:
-#             if rec.status =='over_budget':
-#                 res.state = 'draft'
-#             else:
-#                 res.state = 'confirmed'
-# #                 raise ValidationError(_('The Product Quantities not in Budget.'))
-#         return res
-    
-#        
-#         return {
-#             'name':_('Vendors'),
-#             'type':'ir.actions.act_window',
-#             'view_type':'form',
-#             'view_mode':'form',
-#             'res_model':'vendor.quotation',   
-#             'views':[[form_view, 'form']],
-#             'view_id':form_view,
-#             'target': 'new',
-#         }
-#   
-        
+
     @api.multi
     def is_approve(self):
         cate_id = self.env['product.category'].search([])
         for cate in cate_id:
             amount = 0.0
-            for rec in self.product_list_ids:
-                if rec.product.categ_id.id == cate.id:
-                    qty_add = self.env['qty.budget'].search([('name','=',rec.product.categ_id.id),('project_id','=',self.project_id.id)])
-                    if qty_add:
-                        amount += rec.executed 
+            executed=0
+            qty_add = self.env['qty.budget'].search([('name','=',cate.id),('project_id','=',self.project_id.id)])
+            if qty_add:
+                for rec in self.product_list_ids:
+                    if rec.product.categ_id.id == cate.id:
+                        if executed==0:
+                            amount += rec.executed
+                            executed += rec.executed                             
                         amount += rec.cantidad
-                        if amount > rec.budget:
-                            diff = amount - rec.budget
-                            qty_add.qty = diff + rec.budget
-        #                     diff = rec.cantidad - rec.budget
-        #                     qty_add.qty = diff + rec.budget
-                            rec.status = 'available'
-                    
-#         cate_id = self.env['product.category'].search([])
-#         for cate in cate_id:
-#             amount = 0.0
-#             for line in self.product_list_ids:
-#                 if line.product.categ_id.id == cate.id:
-#                     amount += line.cantidad 
-#                     if amount > line.budget:
-#                         line.status = 'over_budget' 
-
+                if amount > qty_add.qty:
+                    qty_add.qty = amount
         
+        self._onchange_cantidad()
+            
+            
+                    
     @api.multi
     def generar_orden_compra(self):
         seller_by_product_mxn = defaultdict(set)
@@ -231,12 +219,13 @@ class productListLine(models.Model):
     supplier_id = fields.Many2one('res.partner',string="Supplier")
     budget = fields.Float(compute='_compute_budget',string="Presupuesto")
     executed = fields.Float(compute="_compute_executed",string="Ejercido")
+    executed_cost = fields.Float(string="Ejercido")
     status = fields.Selection([('available', "Disponible"), ('over_budget', "Sin Presupuesto")], string="Estatus")
 
     @api.one
     @api.depends('product')
     def _compute_budget(self):
-        categ_id = self.env['qty.budget'].search([('project_id','=',self.product_list_id.project_id.id),('name','=',self.product.categ_id.id)])
+        categ_id = self.env['qty.budget'].search([('project_id','=',self.product_list_id.project_id.id),('name','=',self.product.id)])
         if categ_id:
             self.budget = categ_id.qty
         else:
@@ -245,17 +234,18 @@ class productListLine(models.Model):
     @api.one
     @api.depends('product')
     def _compute_executed(self):
-        qty_id = self.env['purchase.order'].search([
-            ('order_line.product_id.categ_id.id','=',self.product.categ_id.id),
-            ('x_cuenta_analitica_id','=',self.project_id.analytic_account_id.id)
+        qty_id = self.env['purchase.order.line'].search([
+            ('product_id','=',self.product.id),
+            ('order_id.x_cuenta_analitica_id','=',self.project_id.analytic_account_id.id),
+            ('order_id.state','=','purchase')
         ])
-        total = 0.0
-        for rec in qty_id:
-            for res in rec.order_line:
-                if res.state == 'purchase':
-                    total += res.product_qty
+        total = executed_cost=0.0
+        for res in qty_id:
+            if res.state == 'purchase':
+                total += res.product_qty
+                executed_cost += res.price_subtotal
         self.executed = total
-
+        self.executed_cost = executed_cost
 
     @api.onchange('cantidad')
     def on_change_state(self):
@@ -266,16 +256,6 @@ class productListLine(models.Model):
             if total_qty > self.budget: 
                 self.status = 'over_budget'
                 
-#                 else:
-#                     self.status = 'available'   
-       
-                
-#             amount += line.cantidad 
-#             pro_categ_id = self.env['qty.budget'].search([('name','=',self.product.categ_id.id)])
-#             if pro_categ_id:
-#                 if amount > self.budget:
-#                     self.status = 'over_budget'
-#                 
     
                 
   
