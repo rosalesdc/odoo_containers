@@ -15,16 +15,18 @@ class PurchaseOrderLinesIn(models.Model):
             ultimo_precio=self.env.cr.fetchone()[0]
             print(str(ultimo_precio))
         return True
-    
+
     @api.model
     def create(self, vals):
         print("CREATING VALUES:::::::::::::::::::::::::")
-        
+        ultimo_precio=0
         #se obtiene el ultimo precio registrado del producto que se está ingresando
         query="select product_id,price_unit,order_id,partner_id,create_date from purchase_order_line WHERE product_id= %s ORDER BY create_date DESC LIMIT 1;"
         self.env.cr.execute(query, (vals['product_id'],))
-        ultimo_precio=self.env.cr.fetchone()[1]
-        print(str(ultimo_precio))
+        row = self.env.cr.fetchone()
+        if row is not None: #si es la primera orden puede regresar None
+            ultimo_precio=row[1] 
+            #ultimo_precio=self.env.cr.fetchone()[1]
         
         #se almacena el nuevo registro
         res=super(PurchaseOrderLinesIn, self).create(vals)
@@ -37,19 +39,12 @@ class PurchaseOrderLinesIn(models.Model):
             print("es diferente")
         return res
     
-    x_precio_nuevo=fields.Boolean()
-    
-    def verifica_precio_nuevo(self,id_producto_agregado):
-    #self debería tener el id del producto que se está agregando
-    #quiero buscar el ultimo precio de un producto, si es igual al que se está agregando
-    #regresa falso
-        precios = self.env['purchase.order.line'].search([('precio','=', par_prefijo_folio)])
-        return ''
-    
-    
+    x_precio_nuevo=fields.Boolean(default=True)
+
     #https://groups.google.com/forum/#!topic/openerp-spain-users/F6coQY-_AIQ
     #http://linkode.org/crzg1ABc81sHxXegbgSI26
     #https://www.odoo.com/es_ES/forum/ayuda-1/question/how-to-do-a-sql-query-in-odoo-10-119605
+    #https://www.odoo.yenthevg.com/override-create-functions-odoo/
     
     
         
