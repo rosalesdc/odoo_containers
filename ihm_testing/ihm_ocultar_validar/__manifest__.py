@@ -41,3 +41,4 @@
 ######NOTAS
 #http://ingeniosolutions.com.ar/demos/pythagoreanodoo/acusmata/seguridad-basica-permisos-csv-grupo-de-usuarios
 #https://odootips.com/saber-si-un-usuario-pertenece-a-un-grupo-1c30d34fdcf1
+#https://stackoverrun.com/es/q/12285834
