@@ -9,8 +9,8 @@ class HistoricoVariaciones(models.Model):
     _name = 'historico.variaciones'
     
     date_order = fields.Datetime(
-                                 string="Fecha de pedido"
-                                 )
+                                string="Fecha de pedido"
+                                )
     product_id = fields.Many2one(
                                  'product.product', #nombre del modelo con el que se relaciona
                                  string="Producto",
@@ -21,9 +21,4 @@ class HistoricoVariaciones(models.Model):
                                  string='Partner',
                                  required=True,
                                  store=True)
-                                 
-    order_id = fields.Integer(
-                              string='Orden',
-                              default=0,
-                              store=True)
     #x_precio_nuevo = fields.Boolean(default=True)

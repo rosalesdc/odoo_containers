@@ -25,23 +25,23 @@ class PurchaseOrderLinesIn(models.Model):
         print("CREATING VALUES:::::::::::::::::::::::::")
         ultimo_precio = -1 #un precio que no deba existir
         valores_historico = {}
-        res = super(PurchaseOrderLinesIn, self).create(vals)
-        #---------Obtener fecha de la orden
-        print('fecha pedido')
-        id_=int (res['order_id'])
-        fecha = self.env['purchase.order'].search([('id', '=', id_)], limit=1)
-        date_o=fecha.date_order
-        print(date_o)
-        #---------
+        
         
         #se obtiene el ultimo precio registrado del producto que se está ingresando, puede diferir del la fecha de su orden
-        query = "select product_id,price_unit,order_id,partner_id,date_order from historico_variaciones WHERE product_id= %s AND date_order<= %s ORDER BY create_date DESC LIMIT 1;"
-        self.env.cr.execute(query, (vals['product_id'],date_o))
+        query = "select product_id,price_unit,order_id,partner_id,create_date from purchase_order_line WHERE product_id= %s ORDER BY create_date DESC LIMIT 1;"
+        self.env.cr.execute(query, (vals['product_id'],))
         row = self.env.cr.fetchone()
         
         if row is None:
             print('La consulta regresa NONE--si se agrega al historico')
-            
+            res = super(PurchaseOrderLinesIn, self).create(vals)
+            #---------Obtener fecha de la orden
+            print('fecha pedido')
+            id_=int (res['order_id'])
+            fecha = self.env['purchase.order'].search([('id', '=', id_)], limit=1)
+            date_o=fecha.date_order
+            print(date_o)
+            #---------
             #Esta tupla sería utilizando la fecha de creación de la línea
             #tupla=(int (res['product_id']),res['price_unit'],res['create_date'],int (res['partner_id']),res['create_date'])
             #Esta tupla sería utilizando la fecha de la orden
@@ -52,7 +52,16 @@ class PurchaseOrderLinesIn(models.Model):
         
         else:
             print('La consulta no regresa NONE')
+            res = super(PurchaseOrderLinesIn, self).create(vals)
             ultimo_precio = row[1]
+            
+            #---------Obtener fecha de la orden
+            print('fecha pedido')
+            id_=int (res['order_id'])
+            fecha = self.env['purchase.order'].search([('id', '=', id_)], limit=1)
+            date_o=fecha.date_order
+            print(date_o)
+            #---------
             
             if ultimo_precio == res['price_unit']:
                 print("es igual--no se agrega al historico")
