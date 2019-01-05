@@ -2,8 +2,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
-    'name': 'Budget Management by Quantity',
-    'version': '1.1',
+    'name': 'dBudget Management by Quantity',
+    'version': '1.2',
     'category': 'Project',
     'summary': 'Budget Management by Quantity by using Project',
     'author':'PPTS [India] Pvt.Ltd.',

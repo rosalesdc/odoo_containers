@@ -76,7 +76,7 @@ class ValidateBid(http.Controller):
                 if total == odd_no:                  
                     supplier_amount_total_1[odd_no - 1] = "{:,.2f}".format(supplier_id[scount - 1])
                     scount += 1
-        return request.render('purchase_comparison_chart.purchase_comparison', {'data':values, 'supplier':supplier_ids, 'purchase_requisition_id':purchase_requisition_id,
+        return request.render('purchase_comparison_chart_v2.purchase_comparison', {'data':values, 'supplier':supplier_ids, 'purchase_requisition_id':purchase_requisition_id,
                                                                'number':number, 'to_no':total_no, 'column_no':even_number, 'supplier_amount_total':supplier_amount_total,
                                                                 'supplier_amount_total_1':supplier_amount_total_1, 'odd_number':odd_number})
     
@@ -120,9 +120,9 @@ class ValidateBid(http.Controller):
         if list_id:
 
             
-            return request.render('purchase_comparison_chart.purchase_comparison_list_confirm', {'list_id':list_id})
+            return request.render('purchase_comparison_chart_v2.purchase_comparison_list_confirm', {'list_id':list_id})
         else:
-            return request.render('purchase_comparison_chart.purchase_comparison_confirm', {'requisition_id':requisition_id})
+            return request.render('purchase_comparison_chart_v2.purchase_comparison_confirm', {'requisition_id':requisition_id})
 
 
     @http.route(['/purchase_comparison_chart/purchase_comparison_product_list/<model("product.list"):list_id>'], type='http', auth='public', website=True)
@@ -141,8 +141,8 @@ class ValidateBid(http.Controller):
             counts += 1
 
             for line in record.order_line:
-                for res in request.env['qty.budget'].sudo().search([('name', '=', line.product_id.id),('project_id', '=', line.order_id.x_cuenta_analitica_id.name)]):
-                    for exe in request.env['product.list'].sudo().search([('product_list_ids.product', '=', line.product_id.id),('project_id', '=', line.order_id.x_cuenta_analitica_id.name)]):
+                for res in request.env['qty.budget'].sudo().search([('name', '=', line.product_id.id),('project_id.analytic_account_id', '=', line.order_id.x_cuenta_analitica_id.id)]):
+                    for exe in request.env['product.list'].sudo().search([('product_list_ids.product', '=', line.product_id.id),('project_id.analytic_account_id', '=',line.order_id.x_cuenta_analitica_id.id)]):
                         for product_list in exe.product_list_ids:
                             if values:
                                 if line.product_id.id not in product_ids:
@@ -236,7 +236,7 @@ class ValidateBid(http.Controller):
                 if total == odd_no:                  
                     supplier_amount_total_1[odd_no - 1] = "{:,.2f}".format(supplier_id[scount - 1])
                     scount += 1
-        return request.render('purchase_comparison_chart.purchase_comparison_list', {'po':0,'data':values, 'supplier':supplier_ids, 'list_id':list_id, 
+        return request.render('purchase_comparison_chart_v2.purchase_comparison_list', {'po':0,'data':values, 'supplier':supplier_ids, 'list_id':list_id, 
                                                                'number':number, 'to_no':total_no, 'column_no':even_number, 'supplier_amount_total':supplier_amount_total,
                                                                 'supplier_amount_total_1':supplier_amount_total_1, 'odd_number':odd_number})
 
@@ -270,8 +270,8 @@ class ValidateBid(http.Controller):
                                         'price':"{:,.2f}".format(line.price_unit),
                                         'uom':line.product_id.uom_po_id.name,
                                         'qty':"{:,.2f}".format(line.product_qty),
-                                        'planned_qty':"{:,.2f}".format(0),
-                                        'planned_bud':"{:,.2f}".format(0),
+#                                         'planned_qty':"{:,.2f}".format(0),
+#                                         'planned_bud':"{:,.2f}".format(0),
                                         'exe_qty':"{:,.2f}".format(0),
                                         'exe_bud':"{:,.2f}".format(0),
                                         'new_exe_qty':"{:,.2f}".format(0)
@@ -283,8 +283,8 @@ class ValidateBid(http.Controller):
                                    'price':"{:,.2f}".format(line.price_unit), 
                                    'uom':line.product_id.uom_po_id.name, 
                                     'qty':"{:,.2f}".format(line.product_qty),
-                                    'planned_qty':"{:,.2f}".format(0),
-                                    'planned_bud':"{:,.2f}".format(0),
+#                                     'planned_qty':"{:,.2f}".format(0),
+#                                     'planned_bud':"{:,.2f}".format(0),
                                     'exe_qty':"{:,.2f}".format(0),
                                     'exe_bud':"{:,.2f}".format(0),
                                     'new_exe_qty':"{:,.2f}".format(0)
@@ -328,7 +328,6 @@ class ValidateBid(http.Controller):
             increase_by_supplier = total_supplier * no_of_col
         else:
             increase_by_supplier = no_of_col
-        print(increase_by_supplier)
         
         if total_supplier > 1:
             total_no = range(1, increase_by_supplier + 1)
@@ -363,7 +362,7 @@ class ValidateBid(http.Controller):
                 if total == odd_no:                  
                     supplier_amount_total_1[odd_no - 1] = "{:,.2f}".format(supplier_id[scount - 1])
                     scount += 1
-        return request.render('purchase_comparison_chart.purchase_comparison_list', {'po':1,'data':values, 'supplier':supplier_ids, 'list_id':False, 
+        return request.render('purchase_comparison_chart_v2.purchase_comparison_list', {'po':1,'data':values, 'supplier':supplier_ids, 'list_id':False, 
                                                                'number':number, 'to_no':total_no, 'column_no':even_number, 'supplier_amount_total':supplier_amount_total,
                                                                 'supplier_amount_total_1':supplier_amount_total_1, 'odd_number':odd_number})
 

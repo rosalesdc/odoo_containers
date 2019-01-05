@@ -252,9 +252,9 @@
 													class="table_td fixed_columns column1">Proveedor
 												</th>
 												<t t-if="po==0">
-													<th colspan="2" style="text-align:center"
+													 <th colspan="2" style="text-align:center"
 	                                                    class="table_td fixed_columns column5 ">Planned Budget
-	                                                </th>
+	                                                </th> 
 	                                                <th colspan="2" style="text-align:center"
 	                                                    class="table_td fixed_columns column7 ">Executed
 	                                                </th>
@@ -278,9 +278,9 @@
 												<th class="table_td fixed_columns column3">UM</th>
 												<th class="table_td fixed_columns column4">CANT</th>
 												<t t-if="po==0">
-													<th class="table_td fixed_columns column5 color_pick">Cant</th>
+ 													<th class="table_td fixed_columns column5 color_pick">Cant</th>
 	                                                <th class="table_td fixed_columns column6 color_pick">Importe</th>
-	                                                <th class="table_td fixed_columns column7 color_pick1">Cant</th>
+ 	                                                <th class="table_td fixed_columns column7 color_pick1">Cant</th>
 	                                                <th class="table_td fixed_columns column8 color_pick1">Importe</th>
 	                                                <th class="table_td fixed_columns column9 color_pick2">Cant</th>
 	                                                <th class="table_td fixed_columns column10 color_pick2">Importe</th>
@@ -311,7 +311,7 @@
 														<span t-esc="question['qty']" class="current_qty" />
 													</td>
 													<t t-if="po==0">
-														<td class="table_td fixed_columns color_pick column5  ">    
+													  <td class="table_td fixed_columns color_pick column5  ">    
 	                                                        <span t-esc="question['planned_bud']" />                                                
 	                                                    </td>
 	                                                    <td class="table_td fixed_columns color_pick column6 ">    
@@ -330,7 +330,7 @@
 	                                                        <span t-esc="question['new_exe_qty']" />                                                
 	                                                    </td>
 	                                                    <td class="table_td fixed_columns color_pick2 column10 ">    
-	                                                        <span class="new_exe_budget" t-attf-initial_value="{{ question['exe_bud'] }}"   t-attf-plan_value="{{question['planned_qty']}}" />                                                
+	                                                        <span class="new_exe_budget" t-attf-initial_value="{{ question['exe_bud'] }}"  />                                                
 	                                                    </td>
                                                     </t>
 													<t t-foreach="question['amt']" t-as="amount">

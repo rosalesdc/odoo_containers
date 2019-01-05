@@ -8,11 +8,18 @@
 				<form string="Budget Quantity">
 					<sheet>
 						<group>
-							<field name="name" />
-							<field name="qty" />
-							<field name="uom_id" />
-							<field name="cantidad_total"/>
-							<field name="project_id" invisible="1"/>
+								<field name="category_id" readonly="1" />
+								<field name="name" />
+	 							<field name="qty" />
+ 								<field name="uom_id" />
+								<field name="cantidad_total"/>
+								<field name="executed" readonly="1" />
+								<field name="executed_cost" readonly="1" />
+								<field name="percentage_qty" readonly="1" />
+								<field name="percentage_amt" readonly="1" />
+								<field name="remaining_amt" readonly="1" />
+								<field name="remaining_qty" readonly="1" />
+								<field name="project_id" invisible="1"/>
 						</group>
 					</sheet>
 				</form>
@@ -23,13 +30,19 @@
 			<field name="model">qty.budget</field>
 			<field name="arch" type="xml">
 				<tree string="Budget Quantity" editable="top">
+
+					<field name="category_id" readonly="1" />
 					<field name="name" />
 					<field name="qty" />
 					<field name="uom_id" />
 					<field name="cantidad_total"/>
-					<field name="executed"/>
-					<field name="executed_cost"/>
-					<field name="percentage"/>
+					<field name="executed" readonly="1" />
+					<field name="executed_cost" readonly="1" />
+					<field name="percentage_qty" readonly="1" />
+					<field name="percentage_amt" readonly="1" />
+					<field name="remaining_amt" readonly="1" />
+					<field name="remaining_qty" readonly="1" />
+					<field name="project_id" invisible="1"/>
 				</tree>
 			</field>
 		</record>

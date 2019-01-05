@@ -2,13 +2,10 @@ $(document).ready(function(){
 	 $(".exe_radio").change(function(){
 		  
 		    var vendor_price=parseFloat($(this).parent().find('.exe_price').attr('initial_value').replace(",", ""));
-		    var ex_total=parseFloat($(this).parent().parent().find('.new_exe_budget').attr('initial_value').replace(",", ""));
-		    var plan_budget=parseFloat($(this).parent().parent().find('.new_exe_budget').attr('plan_value').replace(",", ""));
-		    var current_qty=parseFloat($(this).parent().parent().find('.current_qty').text().replace(",", ""));
 		    
-//		    $(this).parent().parent().find('.new_exe_budget').text(
-//		    			((((vendor_price*current_qty)+ex_total)/plan_budget)*100).toFixed(2).toString()+' %'
-//		    		);    
+		    var ex_total=parseFloat($(this).parent().parent().find('.new_exe_budget').attr('initial_value').replace(",", ""));
+		    var current_qty=parseFloat($(this).parent().parent().find('.current_qty').text().replace(",", ""));   
+		    alert(vendor_price+'--'+ex_total+'--'+current_qty);
 		    $(this).parent().parent().find('.new_exe_budget').text(
 	    			((((vendor_price*current_qty)+ex_total))).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 	    		);
@@ -22,11 +19,7 @@ $(document).ready(function(){
 			var vendor_price=parseFloat($(this).find('.supplier_product_'+supplier).parent().find('.exe_price').attr('initial_value').replace(",", ""));
 			if(!isNaN(vendor_price)){													  
 		    	var ex_total=parseFloat($(this).find('.new_exe_budget').attr('initial_value').replace(",", ""));
-		    	var plan_budget=parseFloat($(this).find('.new_exe_budget').attr('plan_value').replace(",", ""));
 		    	var current_qty=parseFloat($(this).find('.current_qty').text().replace(",", ""));
-//			    $(this).find('.new_exe_budget').text(
-//			    		((((vendor_price*current_qty)+ex_total)/plan_budget)*100).toFixed(2).toString()+' %'
-//			    		);
 			    $(this).find('.new_exe_budget').text(
 			    		((((vendor_price*current_qty)+ex_total))).toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
 			    		);

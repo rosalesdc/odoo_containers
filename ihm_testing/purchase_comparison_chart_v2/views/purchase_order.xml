@@ -30,7 +30,7 @@
  <record id="action_purchase_comparision" model="ir.actions.server">
    <field name="name">Purchase Comparison</field>
    <field name="type">ir.actions.server</field>
-   <field name="model_id" ref="purchase_comparison_chart.model_purchase_order" />
+   <field name="model_id" ref="purchase_comparison_chart_v2.model_purchase_order" />
    <field name="state">code</field>
    <field name="code">
     if record:
@@ -38,8 +38,6 @@
    </field>
   </record>
   
-  
-    
 		
 	</data>
 </odoo>

@@ -4,12 +4,11 @@
         <record id="hide_validar_inherited" model="ir.ui.view">
             <field name="name">hide.validar.inherited</field>
             <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_form"/>
-<!--            <field name="inherit_id" ref="account.invoice_supplier_form"/>-->
+            <!--            <field name="inherit_id" ref="account.invoice_form"/>-->
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//header/button[@name='action_invoice_open']" position="replace">              
-<!--                    <button name="action_invoice_open" type="object" states="draft" string="Validate" class="oe_highlight" groups="ihm_ocultar_validar.group_pyth_disciple"/>-->
-                    <button name="action_invoice_open" type="object" states="draft" string="Validate" class="oe_highlight o_invoice_validate" groups="ihm_ocultar_validar.group_pyth_disciple"/>
+                <xpath expr="//header/button[@name='action_invoice_open']" position="attributes">
+                    <attribute name="groups">ihm_ocultar_validar.group_validar</attribute>
                 </xpath>
             </field>
         </record>

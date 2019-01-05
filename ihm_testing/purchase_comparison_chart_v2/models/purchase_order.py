@@ -48,7 +48,7 @@ class PurchaseOrder(models.Model):
         purchase_orders = self.env['purchase.order'].search([('id', 'in', self.ids),('state','=', 'draft')])
 
         if not purchase_orders:
-            raise UserError(_('All RFQs are processed. Please create mew quotation'))
+            raise UserError(_('All RFQs are processed. Please create new quotation'))
         base_url = '/' if self.env.context.get('relative_url') else self.env['ir.config_parameter'].get_param('web.base.url')
 
         list_id = False

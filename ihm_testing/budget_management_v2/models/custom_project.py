@@ -88,30 +88,30 @@ class productList(models.Model):
     
     @api.multi
     def set_done(self):
-        for record in self.product_list_ids:
-            if record.status == 'over_budget':
-                raise ValidationError(_('The Product Quantities not in Budget.'))
+#         for record in self.product_list_ids:
+#             if record.status == 'over_budget':
+#                 raise ValidationError(_('The Product Quantities not in Budget.'))
         self.state = 'done'
         self.write({'is_locked':True})
 
-    @api.multi
-    def is_approve(self):
-        cate_id = self.env['product.category'].search([])
-        for cate in cate_id:
-            amount = 0.0
-            executed=0
-            qty_add = self.env['qty.budget'].search([('name','=',cate.id),('project_id','=',self.project_id.id)])
-            if qty_add:
-                for rec in self.product_list_ids:
-                    if rec.product.categ_id.id == cate.id:
-                        if executed==0:
-                            amount += rec.executed
-                            executed += rec.executed                             
-                        amount += rec.cantidad
-                if amount > qty_add.qty:
-                    qty_add.qty = amount
-        
-        self._onchange_cantidad()
+#     @api.multi
+#     def is_approve(self):
+#         cate_id = self.env['product.category'].search([])
+#         for cate in cate_id:
+#             amount = 0.0
+#             executed=0
+#             qty_add = self.env['qty.budget'].search([('name','=',cate.id),('project_id','=',self.project_id.id)])
+#             if qty_add:
+#                 for rec in self.product_list_ids:
+#                     if rec.product.categ_id.id == cate.id:
+#                         if executed==0:
+#                             amount += rec.executed
+#                             executed += rec.executed                             
+#                         amount += rec.cantidad
+# #                 if amount > qty_add.qty:
+# #                     qty_add.qty = amount
+#         
+#         self._onchange_cantidad()
             
             
                     
@@ -226,6 +226,7 @@ class productListLine(models.Model):
     @api.depends('product')
     def _compute_budget(self):
         categ_id = self.env['qty.budget'].search([('project_id','=',self.product_list_id.project_id.id),('name','=',self.product.id)])
+        print(categ_id)
         if categ_id:
             self.budget = categ_id.qty
         else:

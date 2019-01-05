@@ -35,7 +35,7 @@ class PurchaseRequisition(models.Model):
             raise UserError(_('No RFQ available for the Purchase agreement. Please add some RFQ to compare'))
         purchase_order = self.env['purchase.order'].search([('requisition_id', '=', self.id),('state','=', 'draft')])
         if not purchase_order:
-            raise UserError(_('All RFQs are processed. Please create mew quotation'))
+            raise UserError(_('All RFQs are processed. Please create new quotation'))
         print(self.with_context(relative_url=True).print_url)
         return {
             'type': 'ir.actions.act_url',

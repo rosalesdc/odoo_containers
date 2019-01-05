@@ -3,7 +3,7 @@
 
 {
     'name': 'Purchase Comparison Chart',
-    'version': '11.0.0',
+    'version': '1.2',
     'category': 'Purchase',
     'author':'PPTS [India] Pvt.Ltd.',
     'description': """
@@ -11,7 +11,7 @@
     """,
     'license': 'LGPL-3',
     'summary': 'Purchase Comparison Chart',
-    'depends': ['purchase','website', 'purchase_requisition','budget_management'],
+    'depends': ['purchase','website', 'purchase_requisition','budget_management_v2'],
     'website': 'https://www.pptssolutions.com',
     'data': [
         'views/inherit_purchase_requisition_view.xml',

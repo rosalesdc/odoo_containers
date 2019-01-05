@@ -35,12 +35,12 @@
 				position="after">
 				<field name="status" />
 			</xpath>
-			<xpath expr="//button[@name='set_confirm']" position="after">
+			<!-- <xpath expr="//button[@name='set_confirm']" position="after">
 				<field name="status_compute" invisible="1" />
 				<button name="is_approve" string="Approve" type="object"
 					class="oe_highlight" groups="project.group_project_manager"
 					attrs="{'invisible': ['|', ('state', 'in', ('draft', 'done','purchase')),('status_compute', '=', True)]}" />
-			</xpath>
+			</xpath> -->
 			<xpath expr="//form/sheet/group" position="before">
 				<div class="oe_button_box">
 					<button name="view_purchase_order" type="object"
